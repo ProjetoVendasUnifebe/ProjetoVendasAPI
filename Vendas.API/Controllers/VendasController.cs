@@ -5,7 +5,7 @@ using Vendas.Domain.DTOs;
 
 namespace Vendas.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class VendasController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("busca-usuarios")]
+        [Route("buscar-usuarios")]
         public IActionResult BuscarUsuarios()
         {
             var response = _usuarioService.BuscarUsuarios();

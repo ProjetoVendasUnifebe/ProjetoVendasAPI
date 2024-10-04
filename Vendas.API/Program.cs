@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Vendas.Application.Interfaces;
+using Vendas.Application.Mappers;
 using Vendas.Application.Services;
 using Vendas.Domain.Interfaces;
 using Vendas.Infra.Context;
@@ -21,6 +22,8 @@ builder.Services.AddEntityFrameworkNpgsql()
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 
 var app = builder.Build();
 

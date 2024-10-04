@@ -20,6 +20,7 @@ namespace Vendas.Infra.Mappings
             builder.Property(x => x.IdUsuario).HasColumnName("idUsuario").HasColumnType("bigint").IsRequired();
             builder.Property(x => x.NomeUsuario).HasColumnName("nomeUsuario").HasColumnType("varchar(60)").IsRequired();
             builder.Property(x => x.Senha).HasColumnName("senha").HasColumnType("varchar(60)").IsRequired();
+            builder.Property(x => x.EhAdm).HasColumnName("ehAdm").HasColumnType("smallint").IsRequired();
         }
     }
 }

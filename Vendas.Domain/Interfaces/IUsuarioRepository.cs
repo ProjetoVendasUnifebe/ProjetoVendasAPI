@@ -10,5 +10,6 @@ namespace Vendas.Domain.Interfaces
     public interface IUsuarioRepository
     {
         List<UsuarioModel> BuscarUsuarios();
+        bool CadastrarUsuario(UsuarioModel novoUsuario);
     }
 }

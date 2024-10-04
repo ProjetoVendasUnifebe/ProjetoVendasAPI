@@ -26,5 +26,18 @@ namespace Vendas.API.Controllers
                 return BadRequest(new ErroDTO("Lista Vazia", "Aparentemente a lista esta vazia"));
             return Ok(response);
         }
+
+        [HttpPost]
+        [Route("cadastrar-usuario")]
+
+        public bool CadastrarUsuario([FromBody] CadastroUsuarioInputDTO  novoUsuario)
+        {
+
+            if (!_usuarioService.CadastrarUsuario(novoUsuario))
+                return false;
+
+            return true;
+        }
+
     }
 }

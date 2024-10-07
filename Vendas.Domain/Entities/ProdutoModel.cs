@@ -11,7 +11,7 @@ namespace Vendas.Domain.Entities
     {
         public int IdProduto { get; set; }
         public string NomeProduto { get; set; }
-        public decimal Valor { get; set; }
+        public double Valor { get; set; }
         public string Descricao { get; set; }
     }
 }

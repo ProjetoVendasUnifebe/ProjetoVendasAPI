@@ -12,9 +12,10 @@ namespace Vendas.Infra.Mappings
 
             builder.HasKey(x => x.IdProduto);
 
+            builder.Property(x => x.IdProduto).HasColumnName("idProduto").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.NomeProduto).HasColumnName("nome").HasColumnType("varchar(100)").IsRequired();
             builder.Property(x => x.Descricao).HasColumnName("descricao").HasColumnType("varchar(200)").IsRequired();
-            builder.Property(x => x.Valor).HasColumnName("valor").HasColumnType("decimal(10,2)").IsRequired();
+            builder.Property(x => x.Valor).HasColumnName("valor").HasColumnType("double").IsRequired();
         }
     }
 }

@@ -15,15 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddEntityFrameworkNpgsql()
-    .AddDbContext<VendasDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase"))
-    );
+
+builder.Services.AddDbContext<VendasDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
+builder.Services.AddAutoMapper(typeof(DomainToDTO));
 
 var app = builder.Build();
 

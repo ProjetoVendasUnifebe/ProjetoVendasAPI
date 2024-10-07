@@ -20,16 +20,22 @@ namespace Vendas.Infra.Repositories
             _context = context;
             _dbSet = context.Set<UsuarioModel>();
         }
-        public List<UsuarioModel> BuscarUsuarios()
+        public async Task<List<UsuarioModel>> BuscarUsuarios()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public bool CadastrarUsuario(UsuarioModel novoUsuario)
+        public async Task<bool> CadastrarUsuario(UsuarioModel novoUsuario)
         {
-            _dbSet.Add(novoUsuario);
+            await _dbSet.AddAsync(novoUsuario);
             
-            return _context.SaveChanges() > 0;
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<UsuarioModel> BuscarUsuario(string login) 
+        {
+            return await _dbSet.FirstOrDefaultAsync(x => x.Login == login);
+
         }
     }
 }

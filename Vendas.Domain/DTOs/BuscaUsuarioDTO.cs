@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Vendas.Domain.DTOs
 {
-    public class CadastroUsuarioInputDTO
+    public class BuscaUsuarioDTO
     {
-        public string NomeUsuario {  get; set; }
-        public string Senha {  get; set; }
-        public int EhAdm { get; set; }
+        public int IdUsuario { get; set;}
         public string Login { get; set; }
+        public string NomeUsuario { get; set;}
+        public int EhAdm { get; set; }
     }
 }

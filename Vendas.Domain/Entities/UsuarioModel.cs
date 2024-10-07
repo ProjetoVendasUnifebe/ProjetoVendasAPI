@@ -13,5 +13,6 @@ namespace Vendas.Domain.Entities
         public string Senha { get; set; }
 
         public int EhAdm {  get; set; }
+        public string Login {  get; set; }
     }
 }

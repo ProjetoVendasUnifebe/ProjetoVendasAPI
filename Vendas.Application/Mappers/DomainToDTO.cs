@@ -1,19 +1,19 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
+using AutoMapper;
 
 namespace Vendas.Application.Mappers
 {
-    public class DTOToDomainProfile : Profile
+    public class DomainToDTO : Profile
     {
-        public DTOToDomainProfile() 
+        public DomainToDTO()
         {
-            CreateMap< CadastroUsuarioInputDTO, UsuarioModel>();
+            CreateMap<UsuarioModel, BuscaUsuarioDTO>();
         }
     }
 }

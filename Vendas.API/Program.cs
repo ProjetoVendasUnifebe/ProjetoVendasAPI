@@ -27,6 +27,9 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));
 
+builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
+builder.Services.AddAutoMapper(typeof(DomainToDTO));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -9,6 +9,9 @@ namespace Vendas.Domain.Interfaces
 {
     public interface IUsuarioRepository
     {
-        List<UsuarioModel> BuscarUsuarios();
+        Task<List<UsuarioModel>> BuscarUsuarios();
+        Task<bool> CadastrarUsuario(UsuarioModel novoUsuario);
+        Task<UsuarioModel> BuscarUsuario(string login);
+
     }
 }

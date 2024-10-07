@@ -11,10 +11,14 @@ namespace Vendas.Infra.Mappings
             builder.ToTable("usuario", "comercialize");
 
             builder.HasKey(x => x.IdUsuario);
+            builder.HasIndex(x => x.Login).IsUnique();
+            
 
             builder.Property(x => x.IdUsuario).HasColumnName("idUsuario").HasColumnType("bigint").IsRequired();
             builder.Property(x => x.NomeUsuario).HasColumnName("nomeUsuario").HasColumnType("varchar(60)").IsRequired();
             builder.Property(x => x.Senha).HasColumnName("senha").HasColumnType("varchar(60)").IsRequired();
+            builder.Property(x => x.EhAdm).HasColumnName("ehAdm").HasColumnType("smallint").IsRequired();
+            builder.Property(x => x.Login).HasColumnName("login").HasColumnType("varchar(60)").IsRequired();
         }
     }
 }

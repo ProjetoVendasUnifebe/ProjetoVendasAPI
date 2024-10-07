@@ -1,14 +1,17 @@
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Vendas.Application.Interfaces
 {
     public interface IProdutoService
     {
-        List<ProdutoModel> BuscarProdutos();
-        ProdutoModel BuscarProdutoPorId(int id);
-        ProdutoModel BuscarProdutoPorNome(string nome);
-        void AdicionarProduto(ProdutoModel produto);
-        void AtualizarProduto(ProdutoModel produto);
-        void RemoverProduto(int id);
+        Task<List<ProdutoModel>> BuscarProdutos();
+        Task<ProdutoModel> BuscarProdutoPorId(int id);
+        Task<ProdutoModel> BuscarProdutoPorNome(string nome);
+        Task AdicionarProduto(ProdutoModel produto);
+        Task AtualizarProduto(ProdutoModel produto);
+        Task RemoverProduto(int id);
     }
 }

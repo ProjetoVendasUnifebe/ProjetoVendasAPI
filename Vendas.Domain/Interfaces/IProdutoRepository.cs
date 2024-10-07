@@ -4,10 +4,11 @@ namespace Vendas.Domain.Interfaces
 {
     public interface IProdutoRepository
     {
-        List<ProdutoModel> BuscarProdutos();
-        ProdutoModel BuscarProdutoPorId(int id);
-        ProdutoModel BuscarProdutoPorNome(string nome);
-        void AdicionarProduto(ProdutoModel produto);
-        void AtualizarProduto(ProdutoModel produto);
+         Task<List<ProdutoModel>> BuscarProdutos();
+        Task<ProdutoModel> BuscarProdutoPorId(int id);
+        Task<ProdutoModel> BuscarProdutoPorNome(string nome);
+        Task AdicionarProduto(ProdutoModel produto);
+        Task<bool> AtualizarProduto(ProdutoModel produto);
+        Task RemoverProduto(int id);
     }
 }

@@ -23,12 +23,14 @@ namespace Vendas.Infra.Repositories
 
         public async Task<ProdutoModel> BuscarProdutoPorId(int id)
         {
-            return await _dbSet.FirstOrDefaultAsync(x => x.IdProduto == id);
+            return await _dbSet.FindAsync(id);
         }
 
-        public async Task<ProdutoModel> BuscarProdutoPorNome(string nome)
+        public async Task<List<ProdutoModel>> BuscarProdutoPorNome(string nome)
         {
-            return await _dbSet.FirstOrDefaultAsync(x => x.NomeProduto == nome);
+            return await _dbSet
+                .Where(x => x.NomeProduto.Contains(nome))
+                .ToListAsync();
         }
 
         public async Task AdicionarProduto(ProdutoModel novoProduto)
@@ -45,12 +47,19 @@ namespace Vendas.Infra.Repositories
 
         public async Task RemoverProduto(int id)
         {
-            var produto = await BuscarProdutoPorId(id);
-            if (produto != null)
+            var produto = await _dbSet.FindAsync(id);
+
+            if (produto == null)
+            {
+                throw new Exception("Produto não encontrado no banco de dados.");
+            }
+            else
             {
                 _dbSet.Remove(produto);
                 await _context.SaveChangesAsync();
             }
         }
+
     }
 }
+

@@ -23,12 +23,14 @@ namespace Vendas.Application.Services
     }
     public async Task<ProdutoModel> BuscarProdutoPorId(int id)
     {
-        return await _produtoRepository.BuscarProdutoPorId(id);
+        var produto = await _produtoRepository.BuscarProdutoPorId(id);
+        return produto; 
     }
 
-    public async Task<ProdutoModel> BuscarProdutoPorNome(string nome)
+    public async Task<List<ProdutoModel>> BuscarProdutoPorNome(string nome)
     {
-        return await _produtoRepository.BuscarProdutoPorNome(nome);
+        var produto = await _produtoRepository.BuscarProdutoPorNome(nome);
+        return produto; 
     }
 
     public async Task AdicionarProduto(ProdutoModel produto)
@@ -43,7 +45,7 @@ namespace Vendas.Application.Services
 
     public async Task RemoverProduto(int id)
     {
-        await _produtoRepository.RemoverProduto(id);
+        _produtoRepository.RemoverProduto(id);
     }
     }
 }

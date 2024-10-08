@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Vendas.Application.Interfaces;
+using Vendas.Application.Mappers;
 using Vendas.Application.Services;
 using Vendas.Domain.Interfaces;
 using Vendas.Infra.Context;
@@ -14,13 +15,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddEntityFrameworkNpgsql()
-    .AddDbContext<VendasDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase"))
-    );
+
+builder.Services.AddDbContext<VendasDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+
+builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
+builder.Services.AddAutoMapper(typeof(DomainToDTO));
+
+builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
+builder.Services.AddAutoMapper(typeof(DomainToDTO));
 
 var app = builder.Build();
 

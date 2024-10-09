@@ -9,6 +9,6 @@ namespace Vendas.Application.Interfaces
         Task<List<ProdutoModel>> BuscarProdutoPorNome(string nome);
         Task AdicionarProduto(ProdutoModel produto);
         Task AtualizarProduto(ProdutoModel produto);
-        Task RemoverProduto(int id);
+        bool RemoverProduto(int id);
     }
 }

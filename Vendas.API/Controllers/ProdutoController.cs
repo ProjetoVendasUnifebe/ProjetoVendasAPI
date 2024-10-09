@@ -64,17 +64,9 @@ namespace Vendas.API.Controllers
         }
 
         [HttpDelete("remover-produto")]
-        public IActionResult RemoverProduto(int id)
-        {
-            try
-            {
-                _produtoService.RemoverProduto(id);
-                return Ok("Produto Removido");
-            }
-            catch (Exception ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
+        public bool RemoverProduto(int id)
+        { 
+            return  _produtoService.RemoverProduto(id);
         }
 
     }

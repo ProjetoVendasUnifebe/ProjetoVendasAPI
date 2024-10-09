@@ -43,9 +43,9 @@ namespace Vendas.Application.Services
         await _produtoRepository.AtualizarProduto(produto);
     }
 
-    public async Task RemoverProduto(int id)
+    public bool RemoverProduto(int id)
     {
-        _produtoRepository.RemoverProduto(id);
+        return _produtoRepository.RemoverProduto(id);
     }
     }
 }

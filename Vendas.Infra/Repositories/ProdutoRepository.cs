@@ -45,19 +45,16 @@ namespace Vendas.Infra.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task RemoverProduto(int id)
+        public bool RemoverProduto(int id)
         {
-            var produto = await _dbSet.FindAsync(id);
+            var produto = _dbSet.Find(id);
 
-            if (produto == null)
-            {
-                throw new Exception("Produto não encontrado no banco de dados.");
-            }
-            else
-            {
-                _dbSet.Remove(produto);
-                await _context.SaveChangesAsync();
-            }
+            if (produto == null) 
+                return false;
+
+            _dbSet.Remove(produto);
+            _context.SaveChanges();
+            return true;//falta salvar a alteração e retornar o resultado correto
         }
 
     }

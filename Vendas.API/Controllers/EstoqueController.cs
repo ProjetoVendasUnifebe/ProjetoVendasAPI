@@ -11,7 +11,7 @@ namespace Vendas.API.Controllers
     {
         private readonly IEstoqueService _estoqueService;
 
-        public EstoqueController( IEstoqueService estoqueService)
+        public EstoqueController(IEstoqueService estoqueService)
         {
             _estoqueService = estoqueService;
         }

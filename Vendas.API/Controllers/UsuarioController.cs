@@ -9,12 +9,12 @@ namespace Vendas.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class VendasController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IProdutoService _produtoService;
 
-        public VendasController(IUsuarioService usuarioService, IProdutoService produtoService)
+        public UsuarioController(IUsuarioService usuarioService, IProdutoService produtoService)
         {
             _usuarioService = usuarioService;
             _produtoService = produtoService;

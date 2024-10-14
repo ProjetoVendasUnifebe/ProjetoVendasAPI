@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Vendas.Domain.Entities;
 namespace Vendas.Infra.Context
 {
     public class VendasDbContext : DbContext
     {
         public VendasDbContext(DbContextOptions<VendasDbContext> options) : base(options) { }
+
+        public DbSet<ClienteModel> Clientes { get; set; }
+        public DbSet<EnderecoModel> Enderecos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -48,7 +48,9 @@ namespace Vendas.API.Controllers
         [Route("adicionar-endereco")]
         public IActionResult AdicionarEndereco(EnderecoModel endereco)
         {
-            _enderecoService.AdicionarEndereco(endereco);
+            var response = _enderecoService.AdicionarEndereco(endereco);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao adicionar endereço", "Ocorreu um erro ao adicionar o endereço"));
             return Ok("Endereço Adicionado");
         }
 
@@ -56,7 +58,9 @@ namespace Vendas.API.Controllers
         [Route("atualizar-endereco")]
         public IActionResult AtualizarEndereco(EnderecoModel endereco)
         {
-            _enderecoService.AtualizarEndereco(endereco);
+            var response = _enderecoService.AtualizarEndereco(endereco);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao atualizar endereço", "Ocorreu um erro ao atualizar o endereço"));
             return Ok("Endereço Atualizado");
         }
 
@@ -64,7 +68,9 @@ namespace Vendas.API.Controllers
         [Route("remover-endereco")]
         public IActionResult RemoverEndereco(int id)
         {
-            _enderecoService.RemoverEndereco(id);
+            var response = _enderecoService.RemoverEndereco(id);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao remover endereço", "Ocorreu um erro ao remover o endereço"));
             return Ok("Endereço Removido");
         }
     }

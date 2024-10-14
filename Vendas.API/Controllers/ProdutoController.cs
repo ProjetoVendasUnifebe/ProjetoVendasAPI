@@ -51,7 +51,9 @@ namespace Vendas.API.Controllers
         [Route("adicionar-produto")]
         public IActionResult AdicionarProduto(ProdutoModel produto)
         {
-            _produtoService.AdicionarProduto(produto);
+            var response = _produtoService.AdicionarProduto(produto);
+            if (response == null)
+                return BadRequest(new ErroDTO("Erro ao adicionar produto", "Ocorreu um erro ao adicionar o produto"));
             return Ok("Produto Adicionado");
         }
 
@@ -59,14 +61,19 @@ namespace Vendas.API.Controllers
         [Route("atualizar-produto")]
         public IActionResult AtualizarProduto(ProdutoModel produto)
         {
-            _produtoService.AtualizarProduto(produto);
+            var response = _produtoService.AtualizarProduto(produto);
+            if (response == null)
+                return BadRequest(new ErroDTO("Erro ao atualizar produto", "Ocorreu um erro ao atualizar o produto"));
             return Ok("Produto Atualizado");
         }
 
         [HttpDelete("remover-produto")]
-        public bool RemoverProduto(int id)
+        public IActionResult RemoverProduto(int id)
         { 
-            return  _produtoService.RemoverProduto(id);
+            var response = _produtoService.RemoverProduto(id);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao remover produto", "Ocorreu um erro ao remover o produto"));
+            return Ok("Produto Removido");
         }
 
     }

@@ -13,16 +13,20 @@ namespace Vendas.Infra.Mappings
             builder.HasKey(x => x.IdCliente);
 
             builder.HasIndex(x => x.IdEndereco);
+
+            // builder.HasOne(x => x.Endereco)
             builder.HasOne<EnderecoModel>()
                    .WithMany()
                    .HasForeignKey(x => x.IdEndereco);
 
+            builder.Property(x => x.IdCliente).HasColumnName("idCliente").HasColumnType("bigint").IsRequired();
             builder.Property(x => x.Nome).HasColumnName("nome").HasColumnType("varchar(100)").IsRequired();
-            builder.Property(x => x.Cpf).HasColumnName("cpf").HasColumnType("varchar(11)").IsRequired();
+            builder.Property(x => x.Cpf).HasColumnName("cpf").HasColumnType("varchar(15)").IsRequired();
             builder.Property(x => x.Email).HasColumnName("email").HasColumnType("varchar(100)").IsRequired();
             builder.Property(x => x.Telefone).HasColumnName("telefone").HasColumnType("varchar(20)").IsRequired();
-            builder.Property(x => x.Sexo).HasColumnName("sexo").HasColumnType("int").IsRequired();
+            builder.Property(x => x.Sexo).HasColumnName("sexo").HasColumnType("varchar(1)").IsRequired();
             builder.Property(x => x.IdEndereco).HasColumnName("idEndereco").HasColumnType("bigint").IsRequired();
+            
         }
     }
 }

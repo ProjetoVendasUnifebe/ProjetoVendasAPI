@@ -12,35 +12,35 @@ namespace Vendas.Application.Services
     {
         _produtoRepository = produtoRepository;
     }
-
-    public Task<List<ProdutoModel>> BuscarProdutos()
+    public List<ProdutoModel> BuscarProdutos()
     {
         var response = _produtoRepository.BuscarProdutos();
         if (response == null)
-            return Task.FromResult(new List<ProdutoModel>());
+            return new List<ProdutoModel>();
 
         return response;
     }
-    public async Task<ProdutoModel> BuscarProdutoPorId(int id)
+
+    public ProdutoModel BuscarProdutoPorId(int id)
     {
-        var produto = await _produtoRepository.BuscarProdutoPorId(id);
-        return produto; 
+        var produto = _produtoRepository.BuscarProdutoPorId(id);
+        return produto;
     }
 
-    public async Task<List<ProdutoModel>> BuscarProdutoPorNome(string nome)
+    public List<ProdutoModel> BuscarProdutoPorNome(string nome)
     {
-        var produto = await _produtoRepository.BuscarProdutoPorNome(nome);
-        return produto; 
+        var produto = _produtoRepository.BuscarProdutoPorNome(nome);
+        return produto;
     }
 
-    public async Task AdicionarProduto(ProdutoModel produto)
+    public bool AdicionarProduto(ProdutoModel produto)
     {
-        await _produtoRepository.AdicionarProduto(produto);
+        return _produtoRepository.AdicionarProduto(produto);
     }
 
-    public async Task AtualizarProduto(ProdutoModel produto)
+    public bool AtualizarProduto(ProdutoModel produto)
     {
-        await _produtoRepository.AtualizarProduto(produto);
+        return _produtoRepository.AtualizarProduto(produto);
     }
 
     public bool RemoverProduto(int id)

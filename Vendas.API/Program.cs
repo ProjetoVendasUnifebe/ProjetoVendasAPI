@@ -32,6 +32,7 @@ builder.Services.AddScoped<IClienteService, ClienteService>();
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));
+builder.Services.AddAutoMapper(typeof(DTOToDomain));
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));

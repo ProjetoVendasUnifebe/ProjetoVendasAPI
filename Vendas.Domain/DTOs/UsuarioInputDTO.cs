@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vendas.Domain.DTOs
 {
-    public class CadastroUsuarioInputDTO
+    public class UsuarioInputDTO
     {
         public string NomeUsuario {  get; set; }
         public string Senha {  get; set; }

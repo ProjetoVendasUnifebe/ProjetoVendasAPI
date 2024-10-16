@@ -48,15 +48,21 @@ namespace Vendas.API.Controllers
         [Route("adicionar-estoque")]
         public IActionResult AdicionarEstoque(EstoqueModel estoque)
         {
-            _estoqueService.AdicionarEstoque(estoque);
+           
+            var response = _estoqueService.AdicionarEstoque(estoque);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao adicionar estoque", "Ocorreu um erro ao adicionar o estoque"));
             return Ok("Estoque Adicionado");
+            
         }
 
         [HttpPut]
         [Route("atualizar-estoque")]
         public IActionResult AtualizarEstoque(EstoqueModel estoque)
         {
-            _estoqueService.AtualizarEstoque(estoque);
+            var response = _estoqueService.AtualizarEstoque(estoque);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao atualizar estoque", "Ocorreu um erro ao atualizar o estoque"));
             return Ok("Estoque Atualizado");
         }
 
@@ -64,7 +70,9 @@ namespace Vendas.API.Controllers
         [Route("remover-estoque")]
         public IActionResult RemoverEstoque(int id)
         {
-            _estoqueService.RemoverEstoque(id);
+            var response = _estoqueService.RemoverEstoque(id);
+            if (response == false)  
+                return BadRequest(new ErroDTO("Erro ao remover estoque", "Ocorreu um erro ao remover o estoque"));
             return Ok("Estoque Removido");
         }
     }

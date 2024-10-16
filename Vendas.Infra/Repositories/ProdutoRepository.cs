@@ -16,33 +16,34 @@ namespace Vendas.Infra.Repositories
             _dbSet = context.Set<ProdutoModel>();
         }
 
-        public async Task<List<ProdutoModel>> BuscarProdutos()
+        public List<ProdutoModel> BuscarProdutos()
         {
-            return await _dbSet.ToListAsync();
+            return _dbSet.ToList();
         }
 
-        public async Task<ProdutoModel> BuscarProdutoPorId(int id)
+        public ProdutoModel BuscarProdutoPorId(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return _dbSet.Find(id);
         }
 
-        public async Task<List<ProdutoModel>> BuscarProdutoPorNome(string nome)
+        public List<ProdutoModel> BuscarProdutoPorNome(string nome)
         {
-            return await _dbSet
+            return _dbSet
                 .Where(x => x.NomeProduto.Contains(nome))
-                .ToListAsync();
+                .ToList();
         }
 
-        public async Task AdicionarProduto(ProdutoModel novoProduto)
+        public bool AdicionarProduto(ProdutoModel novoProduto)
         {
-            await _dbSet.AddAsync(novoProduto);
-            await _context.SaveChangesAsync();
+            _dbSet.Add(novoProduto);
+            return _context.SaveChanges() > 0;
+
         }
 
-        public async Task<bool> AtualizarProduto(ProdutoModel produtoAtualizado)
+        public bool AtualizarProduto(ProdutoModel produtoAtualizado)
         {
             _dbSet.Update(produtoAtualizado);
-            return await _context.SaveChangesAsync() > 0;
+            return _context.SaveChanges() > 0;
         }
 
         public bool RemoverProduto(int id)
@@ -54,7 +55,7 @@ namespace Vendas.Infra.Repositories
 
             _dbSet.Remove(produto);
             _context.SaveChanges();
-            return true;//falta salvar a alteração e retornar o resultado correto
+            return true;
         }
 
     }

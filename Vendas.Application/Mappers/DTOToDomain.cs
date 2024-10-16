@@ -9,11 +9,11 @@ using Vendas.Domain.Entities;
 
 namespace Vendas.Application.Mappers
 {
-    public class DTOToDomainProfile : Profile
+    public class DTOToDomain : Profile
     {
-        public DTOToDomainProfile() 
+        public DTOToDomain()
         {
-            CreateMap< UsuarioInputDTO, UsuarioModel>();
+            CreateMap<UsuarioDTO, UsuarioModel>();
         }
     }
 }

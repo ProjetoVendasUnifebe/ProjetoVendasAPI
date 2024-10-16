@@ -10,9 +10,14 @@ namespace Vendas.Application.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<List<UsuarioModel>> BuscarUsuarios();
-
-        Task<bool> CadastrarUsuario(CadastroUsuarioInputDTO novoUsuario); 
-       Task<BuscaUsuarioDTO> BuscarUsuario(string login);
+        List<UsuarioModel> BuscarUsuarios();
+       bool CadastrarUsuario(UsuarioInputDTO novoUsuario); 
+       BuscaUsuarioDTO BuscarUsuarioPorLogin(string login);
+       bool RealizarLogin(string login, string senha);
+       BuscaUsuarioDTO BuscarUsuarioPorId(int id);
+       List<BuscaUsuarioDTO> BuscarUsuarioPorNome(string nome);
+        string AtualizarUsuario(int id, UsuarioDTO usuarioAtualizado);
+        string AtualizarSenhaUsuario(string login, string senha);
+        bool RemoverUsuario(int id);
     }
 }

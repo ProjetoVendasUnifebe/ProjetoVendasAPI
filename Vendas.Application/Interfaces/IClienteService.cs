@@ -1,8 +1,8 @@
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Application.Interfaces
 {
-    public interface IClienteRepository
+    public interface IClienteService
     {
         List<ClienteModel> BuscarClientes();
         ClienteModel BuscarClientePorId(int id);

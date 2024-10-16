@@ -27,12 +27,12 @@ builder.Services.AddScoped<IEstoqueRepository, EstoqueRepository>();
 builder.Services.AddScoped<IEstoqueService, EstoqueService>();
 builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 builder.Services.AddScoped<IEnderecoService, EnderecoService>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));
-
-builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
-builder.Services.AddAutoMapper(typeof(DomainToDTO));
+builder.Services.AddAutoMapper(typeof(DTOToDomain));
 
 var app = builder.Build();
 

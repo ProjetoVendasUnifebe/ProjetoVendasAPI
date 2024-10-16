@@ -20,28 +20,28 @@ namespace Vendas.API.Controllers
 
         [HttpGet]
         [Route("buscar-produtos")]
-        public async Task<IActionResult> BuscarProdutos()
+        public IActionResult BuscarProdutos()
         {
-            var response = await _produtoService.BuscarProdutos();
-            if (response.Count == 0)
+            var response = _produtoService.BuscarProdutos();
+            if (response.Count() == 0)
                 return BadRequest(new ErroDTO("Lista Vazia", "Aparentemente a lista de produtos esta vazia"));
             return Ok(response);
         }
 
         [HttpGet("produto-por-id/{id}")]
         
-        public async Task<IActionResult> BuscarProdutoPorId(int id)
+        public IActionResult BuscarProdutoPorId(int id)
         {
-            var produto = await _produtoService.BuscarProdutoPorId(id);
+            var produto = _produtoService.BuscarProdutoPorId(id);
             if (produto == null)
                 return BadRequest(new ErroDTO("Produto não encontrado", "O produto não foi encontrado"));
             return Ok(produto);
         }
 
         [HttpGet("produto-por-nome/{nome}")]
-        public async Task<IActionResult> BuscarProdutoPorNome(string nome)
+        public IActionResult BuscarProdutoPorNome(string nome)
         {
-            var response = await _produtoService.BuscarProdutoPorNome(nome);
+            var response = _produtoService.BuscarProdutoPorNome(nome);
             if (response == null)
                 return BadRequest(new ErroDTO("Produto não encontrado", "O produto não foi encontrado"));
             return Ok(response);
@@ -51,7 +51,9 @@ namespace Vendas.API.Controllers
         [Route("adicionar-produto")]
         public IActionResult AdicionarProduto(ProdutoModel produto)
         {
-            _produtoService.AdicionarProduto(produto);
+            var response = _produtoService.AdicionarProduto(produto);
+            if (response == null)
+                return BadRequest(new ErroDTO("Erro ao adicionar produto", "Ocorreu um erro ao adicionar o produto"));
             return Ok("Produto Adicionado");
         }
 
@@ -59,14 +61,19 @@ namespace Vendas.API.Controllers
         [Route("atualizar-produto")]
         public IActionResult AtualizarProduto(ProdutoModel produto)
         {
-            _produtoService.AtualizarProduto(produto);
+            var response = _produtoService.AtualizarProduto(produto);
+            if (response == null)
+                return BadRequest(new ErroDTO("Erro ao atualizar produto", "Ocorreu um erro ao atualizar o produto"));
             return Ok("Produto Atualizado");
         }
 
         [HttpDelete("remover-produto")]
-        public bool RemoverProduto(int id)
+        public IActionResult RemoverProduto(int id)
         { 
-            return  _produtoService.RemoverProduto(id);
+            var response = _produtoService.RemoverProduto(id);
+            if (response == false)
+                return BadRequest(new ErroDTO("Erro ao remover produto", "Ocorreu um erro ao remover o produto"));
+            return Ok("Produto Removido");
         }
 
     }

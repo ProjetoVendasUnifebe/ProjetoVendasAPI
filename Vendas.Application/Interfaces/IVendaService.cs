@@ -1,18 +1,19 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Application.Interfaces
 {
-    public interface IVendaRepository
+    public interface IVendaService
     {
-        List<VendaModel> BuscarVendas();
+        List<VendaModel> BuscarTodos();
         List<VendaModel> BuscarVendasPorData(DateTime? dataInicio, DateTime? dataFim);
-        bool CadastrarVenda(VendaModel novaVenda);
-        string AtualizarVenda(int id, VendaModel novaVenda);
+        bool CadastrarVenda(VendaInputDTO novaVenda);
+        string AtualizarVenda(int id, VendaAtualizaInputDTO novaVenda);
         bool RemoverVenda(int id);
         VendaModel BuscarVendaPorId(int id);
     }

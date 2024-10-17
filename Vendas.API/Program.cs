@@ -29,6 +29,8 @@ builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 builder.Services.AddScoped<IEnderecoService, EnderecoService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IVendaRepository, VendaRepository>();
+builder.Services.AddScoped<IVendaService, VendaService>();
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));

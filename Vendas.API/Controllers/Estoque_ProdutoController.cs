@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Vendas.Application.Interfaces;
 using Vendas.Domain.Entities;
+using Vendas.Domain.DTOs;
 
 namespace Vendas.API.Controllers
 {
@@ -51,7 +52,7 @@ namespace Vendas.API.Controllers
 
         [HttpPost]
         [Route("adicionar-estoque-produto")]
-        public IActionResult AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        public IActionResult AdicionarEstoqueProduto([FromBody] EstoqueProdutoModel estoqueProduto)
         {
             var response = _estoqueProdutoService.AdicionarEstoqueProduto(estoqueProduto);
             if (response == false)
@@ -60,13 +61,14 @@ namespace Vendas.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-estoque-produto")]
-        public IActionResult AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        [Route("atualizar-estoque-produto/{id}")]
+        public IActionResult AtualizarEstoqueProduto(int id,[FromBody] Estoque_ProdutoDTO estoqueProduto)
         {
-            var response = _estoqueProdutoService.AtualizarEstoqueProduto(estoqueProduto);
-            if (response == false)
-                return BadRequest("Erro ao atualizar Estoque Produto");
-            return Ok("Estoque Produto Atualizado");
+            var response = _estoqueProdutoService.AtualizarEstoqueProduto(id, estoqueProduto);
+            if (string.IsNullOrEmpty(response))
+                return Ok("Estoque Produto Atualizado");
+            return BadRequest("Erro ao atualizar Estoque Produto");
+            
         }
 
         [HttpDelete("remover-estoque-produto/{idEstoqueProduto}")]

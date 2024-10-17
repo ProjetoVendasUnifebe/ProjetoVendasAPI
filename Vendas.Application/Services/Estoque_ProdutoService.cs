@@ -1,4 +1,5 @@
 using Vendas.Application.Interfaces;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
 
@@ -37,9 +38,9 @@ namespace Vendas.Application.Services
             return _estoqueProdutoRepository.AdicionarEstoqueProduto(estoqueProduto);
         }
 
-        public bool AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        public string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProduto)
         {
-            return _estoqueProdutoRepository.AtualizarEstoqueProduto(estoqueProduto);
+            return _estoqueProdutoRepository.AtualizarEstoqueProduto(id, estoqueProduto);
         }
 
         public bool RemoverEstoqueProduto(int idEstoqueProduto)

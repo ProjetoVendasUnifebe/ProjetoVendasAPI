@@ -2,6 +2,7 @@ using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
 using Vendas.Infra.Context;
 using Microsoft.EntityFrameworkCore;
+using Vendas.Domain.DTOs;
 
 namespace Vendas.Infra.Repositories
 {
@@ -43,10 +44,23 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public bool AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        public string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProdutoAtualizado)
         {
-            _dbSet.Update(estoqueProduto);
-            return _context.SaveChanges() > 0;
+            var estoque_produto = _dbSet.Find(id);
+
+            if(estoque_produto == null)
+                return "Estoque Produto não encontrado";
+
+            estoque_produto.IdProduto = estoqueProdutoAtualizado.IdProduto;
+            estoque_produto.IdEstoque = estoqueProdutoAtualizado.IdEstoque;
+            estoque_produto.Quantidade = estoqueProdutoAtualizado.Quantidade;
+            estoque_produto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+            
+            _dbSet.Update(estoque_produto);
+            if (_context.SaveChanges() > 0)
+                return string.Empty;
+
+            return "Erro interno do servidor";
         }
 
         public bool RemoverEstoqueProduto(int idEstoqueProduto)

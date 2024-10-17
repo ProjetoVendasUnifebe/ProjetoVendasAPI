@@ -46,7 +46,7 @@ namespace Vendas.API.Controllers
 
         [HttpPost]
         [Route("adicionar-endereco")]
-        public IActionResult AdicionarEndereco(EnderecoModel endereco)
+        public IActionResult AdicionarEndereco([FromBody] EnderecoModel endereco)
         {
             var response = _enderecoService.AdicionarEndereco(endereco);
             if (response == false)
@@ -56,7 +56,7 @@ namespace Vendas.API.Controllers
 
         [HttpPut]
         [Route("atualizar-endereco")]
-        public IActionResult AtualizarEndereco(EnderecoModel endereco)
+        public IActionResult AtualizarEndereco([FromBody] EnderecoModel endereco)
         {
             var response = _enderecoService.AtualizarEndereco(endereco);
             if (response == false)

@@ -1,4 +1,5 @@
 using Vendas.Domain.Entities;
+using Vendas.Domain.DTOs;
 
 namespace Vendas.Application.Interfaces
 {
@@ -9,7 +10,7 @@ namespace Vendas.Application.Interfaces
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdEstoque(int idEstoque);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorQuantidade(int quantidade);
         bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
-        bool AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
+        string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProduto);
         bool RemoverEstoqueProduto(int idEstoqueProduto);
     }
 }

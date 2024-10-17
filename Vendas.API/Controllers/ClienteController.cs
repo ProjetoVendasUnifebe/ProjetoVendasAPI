@@ -44,7 +44,7 @@ namespace Vendas.API.Controllers
 
         [HttpPost]
         [Route("adicionar-cliente")]
-        public IActionResult AdicionarCliente(ClienteModel cliente)
+        public IActionResult AdicionarCliente([FromBody] ClienteModel cliente)
         {
             var response = _clienteService.AdicionarCliente(cliente);
             if (response == false)
@@ -54,7 +54,7 @@ namespace Vendas.API.Controllers
 
         [HttpPut]
         [Route("atualizar-cliente")]
-        public IActionResult AtualizarCliente(ClienteModel cliente)
+        public IActionResult AtualizarCliente([FromBody] ClienteModel cliente)
         {
             var response = _clienteService.AtualizarCliente(cliente);
             if (response == false)

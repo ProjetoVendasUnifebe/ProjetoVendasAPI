@@ -49,7 +49,7 @@ namespace Vendas.API.Controllers
 
         [HttpPost]
         [Route("adicionar-produto")]
-        public IActionResult AdicionarProduto(ProdutoModel produto)
+        public IActionResult AdicionarProduto([FromBody] ProdutoModel produto)
         {
             var response = _produtoService.AdicionarProduto(produto);
             if (response == null)
@@ -59,7 +59,7 @@ namespace Vendas.API.Controllers
 
         [HttpPut]
         [Route("atualizar-produto")]
-        public IActionResult AtualizarProduto(ProdutoModel produto)
+        public IActionResult AtualizarProduto([FromBody] ProdutoModel produto)
         {
             var response = _produtoService.AtualizarProduto(produto);
             if (response == null)

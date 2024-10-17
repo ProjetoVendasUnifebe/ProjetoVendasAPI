@@ -27,7 +27,7 @@ namespace Vendas.Infra.Mappings
             builder.Property(x => x.IdCliente).HasColumnName("idCliente").HasColumnType("bigint").IsRequired();
             builder.Property(x => x.valor).HasColumnName("valor").HasColumnType("decimal(10,2)").IsRequired();
             builder.Property(x => x.data_venda).HasColumnName("data_venda").HasColumnType("datetime").IsRequired();
-            builder.Property(x => x.forma_pagamento).HasColumnName("forma_pagamento").HasColumnType("int").IsRequired();
+            builder.Property(x => x.forma_pagamento).HasColumnName("forma_pagamento").HasColumnType("varchar(20)").IsRequired();
         }
     }
 }

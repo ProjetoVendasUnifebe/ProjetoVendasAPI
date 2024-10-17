@@ -33,6 +33,8 @@ builder.Services.AddScoped<IVendaRepository, VendaRepository>();
 builder.Services.AddScoped<IVendaService, VendaService>();
 builder.Services.AddScoped<IEstoque_ProdutoRepository, Estoque_ProdutoRepository>();
 builder.Services.AddScoped<IEstoque_ProdutoService, Estoque_ProdutoService>();
+builder.Services.AddScoped<IItensVendidosService, ItensVendidosService>();
+builder.Services.AddScoped<IItensVendidosRepository, ItensVendidosRepository>();
 
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));

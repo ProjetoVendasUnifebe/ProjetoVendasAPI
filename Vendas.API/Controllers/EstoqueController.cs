@@ -46,7 +46,7 @@ namespace Vendas.API.Controllers
 
         [HttpPost]
         [Route("adicionar-estoque")]
-        public IActionResult AdicionarEstoque(EstoqueModel estoque)
+        public IActionResult AdicionarEstoque([FromBody] EstoqueModel estoque)
         {
            
             var response = _estoqueService.AdicionarEstoque(estoque);
@@ -58,7 +58,7 @@ namespace Vendas.API.Controllers
 
         [HttpPut]
         [Route("atualizar-estoque")]
-        public IActionResult AtualizarEstoque(EstoqueModel estoque)
+        public IActionResult AtualizarEstoque([FromBody] EstoqueModel estoque)
         {
             var response = _estoqueService.AtualizarEstoque(estoque);
             if (response == false)

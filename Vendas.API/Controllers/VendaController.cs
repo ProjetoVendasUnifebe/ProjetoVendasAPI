@@ -64,8 +64,6 @@ namespace Vendas.API.Controllers
         [Route("atualizar-venda/{id}")]
         public IActionResult AtualizarVenda(int id, [FromBody] VendaAtualizaInputDTO novaVenda)
         {
-            
-
             if (novaVenda.data_venda == null)
                 novaVenda.data_venda = DateTime.MinValue;
 

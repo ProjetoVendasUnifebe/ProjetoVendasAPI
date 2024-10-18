@@ -41,6 +41,8 @@ namespace Vendas.Infra.Repositories
 
         public bool CadastrarVenda(VendaModel novaVenda)
         {
+            //novaVenda.data_venda = DateTime.SpecifyKind(novaVenda.data_venda, DateTimeKind.Utc);
+            //novaVenda.data_venda.ToUniversalTime();
             _dbSet.Add(novaVenda);
             return _context.SaveChanges() > 0;
         }

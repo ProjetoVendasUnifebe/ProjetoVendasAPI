@@ -33,12 +33,13 @@ namespace Vendas.Application.Services
         public bool CadastrarVenda(VendaInputDTO novaVenda)
         {
 
-            novaVenda.data_venda = novaVenda.data_venda.ToUniversalTime();
+            var dataFormatada = DateTime.Parse(novaVenda.data_venda.ToString("dd-MM-yyyy HH:mm:ss"));
+            novaVenda.data_venda = dataFormatada.ToUniversalTime();
+
             var novoUsuario = _mapper.Map<VendaModel>(novaVenda);
 
             if (!_IVendaRepository.CadastrarVenda(novoUsuario))
                 return false;
-
             return true;
         }
 

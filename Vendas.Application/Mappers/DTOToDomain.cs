@@ -16,6 +16,7 @@ namespace Vendas.Application.Mappers
             CreateMap<UsuarioDTO, UsuarioModel>();
             CreateMap<VendaInputDTO, VendaModel>();
             CreateMap<VendaAtualizaInputDTO, VendaModel>();
+            CreateMap<ItensVendidosInputDTO, ItensVendidosModel>();
         }
     }
 }

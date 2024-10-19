@@ -1,15 +1,21 @@
 using Vendas.Application.Interfaces;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces; 
+using Vendas.Application.Mappers;
+using AutoMapper;
 
 namespace Vendas.Application.Services
 {
    public class ProdutoService : IProdutoService
+   
 {
     private readonly IProdutoRepository _produtoRepository;
+    private readonly IMapper _mapper;
 
-    public ProdutoService(IProdutoRepository produtoRepository)
+    public ProdutoService(IProdutoRepository produtoRepository, IMapper mapper)
     {
+        _mapper = mapper;
         _produtoRepository = produtoRepository;
     }
     public List<ProdutoModel> BuscarProdutos()
@@ -33,15 +39,21 @@ namespace Vendas.Application.Services
         return produto;
     }
 
-    public bool AdicionarProduto(ProdutoModel produto)
+    public bool AdicionarProduto(ProdutoDTO produto)
     {
-        return _produtoRepository.AdicionarProduto(produto);
+        var novoProduto = _mapper.Map<ProdutoModel>(produto);
+        if(!_produtoRepository.AdicionarProduto(novoProduto))
+            return false;
+        
+        return true;
     }
 
-    public bool AtualizarProduto(ProdutoModel produto)
+    public string AtualizarProduto(ProdutoModel produtoAtualizado)
     {
-        return _produtoRepository.AtualizarProduto(produto);
+        var novoProduto = _mapper.Map<ProdutoModel>(produtoAtualizado);
+        return _produtoRepository.AtualizarProduto(novoProduto);
     }
+
 
     public bool RemoverProduto(int id)
     {

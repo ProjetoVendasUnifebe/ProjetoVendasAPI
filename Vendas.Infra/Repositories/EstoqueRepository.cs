@@ -39,10 +39,20 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public bool AtualizarEstoque(EstoqueModel estoque)
+        public string AtualizarEstoque(EstoqueModel estoqueNovo)
         {
+            var estoque = BuscarEstoquePorId(estoqueNovo.IdEstoque);
+            if (estoque == null)
+                return "Estoque não encontrado";
+            
+            estoque.Nome = string.IsNullOrEmpty(estoqueNovo.Nome) ? estoque.Nome : estoqueNovo.Nome;
+            estoque.Capacidade = estoqueNovo.Capacidade != 0 ? estoqueNovo.Capacidade : estoque.Capacidade;
+
             _dbSet.Update(estoque);
-            return _context.SaveChanges() > 0;
+            if (_context.SaveChanges() > 0)
+                return string.Empty;
+
+            return "Falha ao atualizar o estoque";
         }
 
         public bool RemoverEstoque(int id)
@@ -53,8 +63,7 @@ namespace Vendas.Infra.Repositories
                 return false;
 
             _dbSet.Remove(estoque);
-            _context.SaveChanges();
-            return true;
+            return _context.SaveChanges() > 0;
         }
     }
 }

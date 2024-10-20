@@ -22,7 +22,7 @@ namespace Vendas.API.Controllers
         {
             var response = _estoqueService.BuscarEstoques();
             if (response.Count == 0)
-                return BadRequest(new ErroDTO("Lista Vazia", "Aparentemente a lista de estoques esta vazia"));
+                return NoContent();
             return Ok(response);
         }
 
@@ -31,7 +31,7 @@ namespace Vendas.API.Controllers
         {
             var estoque = _estoqueService.BuscarEstoquePorId(id);
             if (estoque == null)
-                return BadRequest(new ErroDTO("Estoque não encontrado", "O estoque não foi encontrado"));
+                return NoContent();
             return Ok(estoque);
         }
 
@@ -40,19 +40,18 @@ namespace Vendas.API.Controllers
         {
             var response = _estoqueService.BuscarEstoquePorNome(nomeEstoque);
             if (response == null)
-                return BadRequest(new ErroDTO("Estoque não encontrado", "O estoque não foi encontrado"));
+                return NoContent();
             return Ok(response);
         }
 
         [HttpPost]
         [Route("adicionar-estoque")]
-        public IActionResult AdicionarEstoque([FromBody] EstoqueModel estoque)
+        public IActionResult AdicionarEstoque([FromBody] EstoqueDTO estoque)
         {
            
-            var response = _estoqueService.AdicionarEstoque(estoque);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao adicionar estoque", "Ocorreu um erro ao adicionar o estoque"));
-            return Ok("Estoque Adicionado");
+            if(_estoqueService.AdicionarEstoque(estoque))
+                return Ok("Estoque Adicionado com sucesso");
+            return BadRequest(new ErroDTO("Erro ao adicionar estoque", "Ocorreu um erro ao adicionar o estoque"));
             
         }
 
@@ -61,9 +60,10 @@ namespace Vendas.API.Controllers
         public IActionResult AtualizarEstoque([FromBody] EstoqueModel estoque)
         {
             var response = _estoqueService.AtualizarEstoque(estoque);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao atualizar estoque", "Ocorreu um erro ao atualizar o estoque"));
-            return Ok("Estoque Atualizado");
+            if (string.IsNullOrEmpty(response))
+                return Ok("Estoque Atualizado com sucesso");
+            return BadRequest(new ErroDTO("Erro ao atualizar estoque", "Ocorreu um erro ao atualizar o estoque"));
+            
         }
 
         [HttpDelete]
@@ -73,6 +73,7 @@ namespace Vendas.API.Controllers
             var response = _estoqueService.RemoverEstoque(id);
             if (response == false)  
                 return BadRequest(new ErroDTO("Erro ao remover estoque", "Ocorreu um erro ao remover o estoque"));
+            
             return Ok("Estoque Removido");
         }
     }

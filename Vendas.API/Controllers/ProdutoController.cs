@@ -43,7 +43,7 @@ namespace Vendas.API.Controllers
         {
             var response = _produtoService.BuscarProdutoPorNome(nome);
             if (response == null)
-                return BadRequest(new ErroDTO("Produto não encontrado", "O produto não foi encontrado"));
+                return NoContent();
             return Ok(response);
         }
 

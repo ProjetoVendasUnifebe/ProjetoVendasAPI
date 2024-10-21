@@ -13,7 +13,7 @@ namespace Vendas.Domain.Interfaces
         List<ItensVendidosModel> BuscarTodosItensVendidos();
         ItensVendidosModel BuscarItensVendidosPorId(int id);
         bool CadastrarItensVendidos(ItensVendidosModel novoItensVendidos);
-        string AtualizarItensVendidos(int id, ItensVendidosModel novoItensVendidos);
+        string AtualizarItensVendidos(ItensVendidosModel novoItensVendidos);
         bool RemoverItensVendidos(int id);
 
 

@@ -39,22 +39,37 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public bool AtualizarEndereco(EnderecoModel endereco)
+        public string AtualizarEndereco(EnderecoModel endereco)
         {
-            _dbSet.Update(endereco);
-            return _context.SaveChanges() > 0;
+            var enderecoAtual = _dbSet.Find(endereco.IdEndereco);
+            if (enderecoAtual == null)
+                return "Endereço não encontrado";
+
+            enderecoAtual.Pais = string.IsNullOrEmpty(endereco.Pais) ? enderecoAtual.Pais : endereco.Pais;
+            enderecoAtual.Rua = string.IsNullOrEmpty(endereco.Rua) ? enderecoAtual.Rua : endereco.Rua;
+            enderecoAtual.Cidade = string.IsNullOrEmpty(endereco.Cidade) ? enderecoAtual.Cidade : endereco.Cidade;
+            enderecoAtual.Estado = string.IsNullOrEmpty(endereco.Estado) ? enderecoAtual.Estado : endereco.Estado;
+            enderecoAtual.Bairro = string.IsNullOrEmpty(endereco.Bairro) ? enderecoAtual.Bairro : endereco.Bairro;
+            enderecoAtual.Numero = endereco.Numero == 0 ? enderecoAtual.Numero : endereco.Numero;
+            enderecoAtual.Complemento = string.IsNullOrEmpty(endereco.Complemento) ? enderecoAtual.Complemento : endereco.Complemento;
+            enderecoAtual.Cep = string.IsNullOrEmpty(endereco.Cep) ? enderecoAtual.Cep : endereco.Cep;
+
+            _dbSet.Update(enderecoAtual);
+            if (_context.SaveChanges() > 0)
+                return string.Empty;
+
+            return "Erro ao atualizar o endereço";
         }
 
         public bool RemoverEndereco(int id)
         {
             var endereco = _dbSet.Find(id);
-            
-            if(endereco == null)
+
+            if (endereco == null)
                 return false;
-            
+
             _dbSet.Remove(endereco);
-            _context.SaveChanges();
-            return true;
+            return _context.SaveChanges() > 0;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Vendas.API.Controllers
         {
             var endereco = _enderecoService.BuscarEnderecoPorId(id);
             if (endereco == null)
-                return BadRequest(new ErroDTO("Endereço não encontrado", "O endereço não foi encontrado"));
+                return NoContent();
             return Ok(endereco);
         }
 
@@ -40,18 +40,18 @@ namespace Vendas.API.Controllers
         {
             var response = _enderecoService.BuscarEnderecoPorCidade(cidade);
             if (response.Count == 0)
-                return BadRequest(new ErroDTO("Endereço não encontrado", "O endereço não foi encontrado"));
+                return NoContent();
             return Ok(response);
         }
 
         [HttpPost]
         [Route("adicionar-endereco")]
-        public IActionResult AdicionarEndereco([FromBody] EnderecoModel endereco)
+        public IActionResult AdicionarEndereco([FromBody] EnderecoDTO endereco)
         {
-            var response = _enderecoService.AdicionarEndereco(endereco);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao adicionar endereço", "Ocorreu um erro ao adicionar o endereço"));
-            return Ok("Endereço Adicionado");
+            if (_enderecoService.AdicionarEndereco(endereco))
+                return Ok("Endereço Adicionado");
+            return BadRequest("Erro ao adicionar endereço");
+            
         }
 
         [HttpPut]
@@ -59,9 +59,10 @@ namespace Vendas.API.Controllers
         public IActionResult AtualizarEndereco([FromBody] EnderecoModel endereco)
         {
             var response = _enderecoService.AtualizarEndereco(endereco);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao atualizar endereço", "Ocorreu um erro ao atualizar o endereço"));
-            return Ok("Endereço Atualizado");
+            if (string.IsNullOrEmpty(response))
+                return Ok("Endereço Atualizado com sucesso");
+            return BadRequest("Erro ao atualizar endereço");
+            
         }
 
         [HttpDelete]
@@ -70,8 +71,8 @@ namespace Vendas.API.Controllers
         {
             var response = _enderecoService.RemoverEndereco(id);
             if (response == false)
-                return BadRequest(new ErroDTO("Erro ao remover endereço", "Ocorreu um erro ao remover o endereço"));
-            return Ok("Endereço Removido");
+                return BadRequest("Erro ao remover endereço");
+            return Ok("Endereço Removido com sucesso");
         }
     }
 }

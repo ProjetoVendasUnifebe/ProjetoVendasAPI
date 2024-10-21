@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
 using Vendas.Infra.Context;
@@ -40,10 +41,20 @@ namespace Vendas.Infra.Repositories
 
         }
 
-        public bool AtualizarProduto(ProdutoModel produtoAtualizado)
+        public string AtualizarProduto(ProdutoModel produtoAtualizado)
         {
-            _dbSet.Update(produtoAtualizado);
-            return _context.SaveChanges() > 0;
+            var produto = BuscarProdutoPorId(produtoAtualizado.IdProduto);
+            if (produto == null)
+                return "Produto não encontrado";
+            produto.NomeProduto = string.IsNullOrEmpty(produtoAtualizado.NomeProduto) ? produto.NomeProduto : produtoAtualizado.NomeProduto;
+            produto.Valor = produtoAtualizado.Valor != 0 ? produtoAtualizado.Valor : produto.Valor;
+            produto.Descricao = string.IsNullOrEmpty(produtoAtualizado.Descricao) ? produto.Descricao : produtoAtualizado.Descricao;
+
+            _dbSet.Update(produto);
+            if(_context.SaveChanges() > 0)
+                return string.Empty;
+            
+            return "Falha ao atualizar o produto";
         }
 
         public bool RemoverProduto(int id)
@@ -54,8 +65,7 @@ namespace Vendas.Infra.Repositories
                 return false;
 
             _dbSet.Remove(produto);
-            _context.SaveChanges();
-            return true;
+            return _context.SaveChanges() > 0;
         }
 
     }

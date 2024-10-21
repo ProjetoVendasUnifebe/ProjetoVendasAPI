@@ -17,6 +17,10 @@ namespace Vendas.Application.Mappers
             CreateMap<VendaInputDTO, VendaModel>();
             CreateMap<VendaAtualizaInputDTO, VendaModel>();
             CreateMap<ItensVendidosInputDTO, ItensVendidosModel>();
+            CreateMap<ProdutoDTO, ProdutoModel>();
+            CreateMap<EstoqueDTO, EstoqueModel>();
+            CreateMap<EstoqueProdutoDTO, EstoqueProdutoModel>();
+            CreateMap<EnderecoDTO, EnderecoModel>();
         }
     }
 }

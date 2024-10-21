@@ -61,15 +61,14 @@ namespace Vendas.API.Controllers
         }
 
         [HttpPut]
-        [Route("atualizar-venda/{id}")]
-        public IActionResult AtualizarVenda(int id, [FromBody] VendaAtualizaInputDTO novaVenda)
+        [Route("atualizar-venda")]
+        public IActionResult AtualizarVenda([FromBody] VendaAtualizaInputDTO novaVenda)
         {
-            
-
             if (novaVenda.data_venda == null)
                 novaVenda.data_venda = DateTime.MinValue;
 
-            var response = _vendaService.AtualizarVenda(id, novaVenda);
+            var response = _vendaService.AtualizarVenda(novaVenda);
+
             if (string.IsNullOrEmpty(response))
                 return Ok("Venda Atualizada Com Sucesso");
             return BadRequest(response);
@@ -81,8 +80,8 @@ namespace Vendas.API.Controllers
         {
             var response = _vendaService.RemoverVenda(id);
             if (response)
-                return Ok("Venda removida com sucesso");
-            return BadRequest("Venda não Localizada");
+                return Ok(response);
+            return BadRequest(response);
         }
     }
 }

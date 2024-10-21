@@ -91,10 +91,9 @@ namespace Vendas.Application.Services
             return usuarioDTO;
         }
 
-        public string AtualizarUsuario(int id, UsuarioDTO usuarioAtualizado)
+        public string AtualizarUsuario(UsuarioModel usuarioAtualizado)
         {
-            var novoUsuario = _mapper.Map<UsuarioModel>(usuarioAtualizado);
-            return _usuarioRepository.AtualizarUsuario(id, novoUsuario);
+            return _usuarioRepository.AtualizarUsuario(usuarioAtualizado);
         }
 
         public string AtualizarSenhaUsuario(string login, string senha)

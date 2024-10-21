@@ -23,12 +23,21 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("estoque-produto-por-id/{id}")]
+        public IActionResult BuscarEstoqueProdutoPorId(int id)
+        {
+            var response = _estoqueProdutoService.BuscarEstoqueProdutoPorId(id);
+            if (response == null)
+                return NoContent();
+            return Ok(response);
+        }
+
         [HttpGet("estoque-produto-por-id-produto/{idProduto}")]
         public IActionResult BuscarEstoqueProdutoPorIdProduto(int idProduto)
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorIdProduto(idProduto);
             if (response.Count == 0)
-                return BadRequest("Estoque Produto não encontrado");
+                return NoContent();
             return Ok(response);
         }
 
@@ -37,7 +46,7 @@ namespace Vendas.API.Controllers
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorIdEstoque(idEstoque);
             if (response.Count == 0)
-                return BadRequest("Estoque Produto não encontrado");
+                return NoContent();
             return Ok(response);
         }
 
@@ -46,25 +55,24 @@ namespace Vendas.API.Controllers
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorQuantidade(quantidade);
             if (response.Count == 0)
-                return BadRequest("Estoque Produto não encontrado");
+                return NoContent();
             return Ok(response);
         }
 
         [HttpPost]
         [Route("adicionar-estoque-produto")]
-        public IActionResult AdicionarEstoqueProduto([FromBody] EstoqueProdutoModel estoqueProduto)
-        {
-            var response = _estoqueProdutoService.AdicionarEstoqueProduto(estoqueProduto);
-            if (response == false)
-                return BadRequest("Erro ao adicionar Estoque Produto");
-            return Ok("Estoque Produto Adicionado");
+        public IActionResult AdicionarEstoqueProduto([FromBody] EstoqueProdutoDTO estoqueProduto)
+        { 
+            if (_estoqueProdutoService.AdicionarEstoqueProduto(estoqueProduto))
+                return Ok("Estoque Produto Adicionado");
+            return BadRequest("Erro ao adicionar Estoque Produto");
         }
 
         [HttpPut]
-        [Route("atualizar-estoque-produto/{id}")]
-        public IActionResult AtualizarEstoqueProduto(int id,[FromBody] Estoque_ProdutoDTO estoqueProduto)
+        [Route("atualizar-estoque-produto")]
+        public IActionResult AtualizarEstoqueProduto([FromBody] EstoqueProdutoModel estoqueProduto)
         {
-            var response = _estoqueProdutoService.AtualizarEstoqueProduto(id, estoqueProduto);
+            var response = _estoqueProdutoService.AtualizarEstoqueProduto(estoqueProduto);
             if (string.IsNullOrEmpty(response))
                 return Ok("Estoque Produto Atualizado");
             return BadRequest("Erro ao atualizar Estoque Produto");

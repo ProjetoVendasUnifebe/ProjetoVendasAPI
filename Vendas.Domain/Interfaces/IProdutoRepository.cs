@@ -1,3 +1,4 @@
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
 namespace Vendas.Domain.Interfaces
@@ -8,7 +9,7 @@ namespace Vendas.Domain.Interfaces
         ProdutoModel BuscarProdutoPorId(int id);
         List<ProdutoModel> BuscarProdutoPorNome(string nome);
         bool AdicionarProduto(ProdutoModel produto);
-        bool AtualizarProduto(ProdutoModel produto);
+        string AtualizarProduto(ProdutoModel produto);
         bool RemoverProduto(int id);
     }
 }

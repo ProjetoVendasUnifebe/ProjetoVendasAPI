@@ -33,19 +33,17 @@ namespace Vendas.Application.Services
         public bool CadastrarVenda(VendaInputDTO novaVenda)
         {
 
-            novaVenda.data_venda = novaVenda.data_venda.ToUniversalTime();
             var novoUsuario = _mapper.Map<VendaModel>(novaVenda);
 
             if (!_IVendaRepository.CadastrarVenda(novoUsuario))
                 return false;
-
             return true;
         }
 
-        public string AtualizarVenda(int id, VendaAtualizaInputDTO novaVenda)
+        public string AtualizarVenda(VendaAtualizaInputDTO novaVenda)
         {
             var venda = _mapper.Map<VendaModel>(novaVenda);
-            return _IVendaRepository.AtualizarVenda(id, venda);
+            return _IVendaRepository.AtualizarVenda(venda);
         }
 
         public bool RemoverVenda(int id)

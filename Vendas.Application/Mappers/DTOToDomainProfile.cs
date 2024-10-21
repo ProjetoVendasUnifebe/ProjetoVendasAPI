@@ -14,6 +14,7 @@ namespace Vendas.Application.Mappers
         public DTOToDomainProfile() 
         {
             CreateMap< UsuarioInputDTO, UsuarioModel>();
+            CreateMap<ClienteInputDTO, ClienteModel>();
         }
     }
 }

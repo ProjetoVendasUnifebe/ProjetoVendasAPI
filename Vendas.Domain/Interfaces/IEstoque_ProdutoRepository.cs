@@ -6,11 +6,13 @@ namespace Vendas.Domain.Interfaces
     public interface IEstoque_ProdutoRepository
     {
         List<EstoqueProdutoModel> BuscarEstoqueProduto();
+        EstoqueProdutoModel BuscarEstoqueProdutoPorId(int idEstoqueProduto);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdProduto(int idProduto);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdEstoque(int idEstoque);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorQuantidade(int quantidade);
         bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
-        string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProduto);
+        string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
         bool RemoverEstoqueProduto(int idEstoqueProduto);
+        
     }
 }

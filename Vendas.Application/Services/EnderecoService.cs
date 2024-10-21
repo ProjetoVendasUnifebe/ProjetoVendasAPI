@@ -1,16 +1,20 @@
 using Vendas.Application.Interfaces;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
+using Vendas.Domain.DTOs;
+using AutoMapper;
 
 namespace Vendas.Application.Services
 {
     public class EnderecoService : IEnderecoService
     {
         private readonly IEnderecoRepository _enderecoRepository;
+        private readonly IMapper _mapper;
 
-        public EnderecoService(IEnderecoRepository enderecoRepository)
+        public EnderecoService(IEnderecoRepository enderecoRepository, IMapper mapper)
         {
             _enderecoRepository = enderecoRepository;
+            _mapper = mapper;
         }
 
         public List<EnderecoModel> ListarEnderecos()
@@ -28,14 +32,16 @@ namespace Vendas.Application.Services
             return _enderecoRepository.BuscarEnderecoPorCidade(cidade);
         }
 
-        public bool AdicionarEndereco(EnderecoModel endereco)
+        public bool AdicionarEndereco(EnderecoDTO endereco)
         {
-            return _enderecoRepository.AdicionarEndereco(endereco);
+            var novoEndereco = _mapper.Map<EnderecoModel>(endereco);
+            return _enderecoRepository.AdicionarEndereco(novoEndereco);
         }
 
-        public bool AtualizarEndereco(EnderecoModel endereco)
+        public string AtualizarEndereco(EnderecoModel endereco)
         {
-            return _enderecoRepository.AtualizarEndereco(endereco);
+            var enderecoAtual = _enderecoRepository.BuscarEnderecoPorId(endereco.IdEndereco);
+            return _enderecoRepository.AtualizarEndereco(enderecoAtual);
         }
 
         public bool RemoverEndereco(int id)

@@ -9,16 +9,26 @@ using Vendas.Infra.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Configuração do CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+// Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+// Configuração do Entity Framework com PostgreSQL
 builder.Services.AddDbContext<VendasDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
+// Registro de serviços e repositórios
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -36,6 +46,7 @@ builder.Services.AddScoped<IEstoque_ProdutoService, Estoque_ProdutoService>();
 builder.Services.AddScoped<IItensVendidosService, ItensVendidosService>();
 builder.Services.AddScoped<IItensVendidosRepository, ItensVendidosRepository>();
 
+// Configuração do AutoMapper
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
 builder.Services.AddAutoMapper(typeof(DomainToDTO));
 builder.Services.AddAutoMapper(typeof(DTOToDomain));
@@ -50,6 +61,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Ativar CORS
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthorization();
 

@@ -1,4 +1,6 @@
+using AutoMapper;
 using Vendas.Application.Interfaces;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
 
@@ -7,9 +9,11 @@ namespace Vendas.Application.Services
     public class ClienteService : IClienteService
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IMapper _mapper;
 
-        public ClienteService(IClienteRepository clienteRepository)
+        public ClienteService(IClienteRepository clienteRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _clienteRepository = clienteRepository;
         }
 
@@ -28,12 +32,13 @@ namespace Vendas.Application.Services
             return _clienteRepository.BuscarClientePorNome(nomeCliente);
         }
 
-        public bool AdicionarCliente(ClienteModel cliente)
+        public bool AdicionarCliente(ClienteInputDTO cliente)
         {
-            return _clienteRepository.AdicionarCliente(cliente);
+            var novoCliente = _mapper.Map<ClienteModel>(cliente);
+            return _clienteRepository.AdicionarCliente(novoCliente);
         }
 
-        public bool AtualizarCliente(ClienteModel cliente)
+        public string AtualizarCliente(ClienteModel cliente)
         {
             return _clienteRepository.AtualizarCliente(cliente);
         }

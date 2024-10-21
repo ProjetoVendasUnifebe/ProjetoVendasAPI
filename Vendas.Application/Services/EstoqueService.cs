@@ -1,16 +1,20 @@
 using Vendas.Application.Interfaces;
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
+using AutoMapper;
 
 namespace Vendas.Application.Services
 {
     public class EstoqueService : IEstoqueService
     {
         private readonly IEstoqueRepository _estoqueRepository;
-        
-        public EstoqueService(IEstoqueRepository estoqueRepository)
+        private readonly IMapper _mapper;
+
+        public EstoqueService(IEstoqueRepository estoqueRepository, IMapper mapper)
         {
             _estoqueRepository = estoqueRepository;
+            _mapper = mapper;
         }
 
         public List<EstoqueModel> BuscarEstoques()
@@ -28,14 +32,19 @@ namespace Vendas.Application.Services
             return _estoqueRepository.BuscarEstoquePorNome(nomeEstoque);
         }
 
-        public bool AdicionarEstoque(EstoqueModel estoque)
+        public bool AdicionarEstoque(EstoqueDTO estoque)
         {
-            return _estoqueRepository.AdicionarEstoque(estoque);
+            var novoEstoque = _mapper.Map<EstoqueModel>(estoque);
+            if (!_estoqueRepository.AdicionarEstoque(novoEstoque))
+                return false;
+
+            return true;
         }
 
-        public bool AtualizarEstoque(EstoqueModel estoque)
+        public string AtualizarEstoque(EstoqueModel estoque)
         {
-            return _estoqueRepository.AtualizarEstoque(estoque);
+            var novoEstoque = _mapper.Map<EstoqueModel>(estoque);
+            return _estoqueRepository.AtualizarEstoque(novoEstoque);
         }
 
         public bool RemoverEstoque(int id)

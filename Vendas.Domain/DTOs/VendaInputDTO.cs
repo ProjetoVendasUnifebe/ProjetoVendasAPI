@@ -11,7 +11,7 @@ namespace Vendas.Domain.DTOs
         public int IdUsuario { get; set; }
         public int IdCliente { get; set; }
         public decimal valor { get; set; }
-        public DateTime data_venda { get; set; }
         public string forma_pagamento { get; set; }
+
     }
 }

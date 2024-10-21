@@ -13,7 +13,7 @@ namespace Vendas.Application.Interfaces
         List<ItensVendidosModel> BuscarTodosItensVendidos();
         ItensVendidosModel BuscarItensVendidosPorId(int id);
         bool CadastrarItensVendidos(ItensVendidosInputDTO novoItensVendidos);
-        string AtualizarItensVendidos(int id, ItensVendidosInputDTO novoItensVendidos);
+        string AtualizarItensVendidos(ItensVendidosModel novoItensVendidos);
         bool RemoverItensVendidos(int id);
     }
 }

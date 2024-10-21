@@ -42,11 +42,9 @@ namespace Vendas.Application.Services
             return true;
         }
 
-        public string AtualizarItensVendidos(int id, ItensVendidosInputDTO novoItensVendidos)
+        public string AtualizarItensVendidos(ItensVendidosModel novoItensVendidos)
         {
-            var novoItens = _mapper.Map<ItensVendidosModel>(novoItensVendidos);
-
-            return _itensVendidosRepository.AtualizarItensVendidos(id, novoItens);
+            return _itensVendidosRepository.AtualizarItensVendidos(novoItensVendidos);
         }
 
         public bool RemoverItensVendidos(int id)

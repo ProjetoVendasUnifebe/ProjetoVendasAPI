@@ -33,9 +33,6 @@ namespace Vendas.Application.Services
         public bool CadastrarVenda(VendaInputDTO novaVenda)
         {
 
-            var dataFormatada = DateTime.Parse(novaVenda.data_venda.ToString("dd-MM-yyyy HH:mm:ss"));
-            novaVenda.data_venda = dataFormatada.ToUniversalTime();
-
             var novoUsuario = _mapper.Map<VendaModel>(novaVenda);
 
             if (!_IVendaRepository.CadastrarVenda(novoUsuario))
@@ -43,10 +40,10 @@ namespace Vendas.Application.Services
             return true;
         }
 
-        public string AtualizarVenda(int id, VendaAtualizaInputDTO novaVenda)
+        public string AtualizarVenda(VendaAtualizaInputDTO novaVenda)
         {
             var venda = _mapper.Map<VendaModel>(novaVenda);
-            return _IVendaRepository.AtualizarVenda(id, venda);
+            return _IVendaRepository.AtualizarVenda(venda);
         }
 
         public bool RemoverVenda(int id)

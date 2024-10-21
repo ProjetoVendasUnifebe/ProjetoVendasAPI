@@ -13,7 +13,7 @@ namespace Vendas.Application.Interfaces
         List<VendaModel> BuscarTodos();
         List<VendaModel> BuscarVendasPorData(DateTime? dataInicio, DateTime? dataFim);
         bool CadastrarVenda(VendaInputDTO novaVenda);
-        string AtualizarVenda(int id, VendaAtualizaInputDTO novaVenda);
+        string AtualizarVenda(VendaAtualizaInputDTO novaVenda);
         bool RemoverVenda(int id);
         VendaModel BuscarVendaPorId(int id);
     }

@@ -8,6 +8,7 @@ namespace Vendas.Domain.DTOs
 {
     public class VendaAtualizaInputDTO
     {
+        public int IdVenda { get; set; }
         public int IdUsuario { get; set; }
         public int IdCliente { get; set; }
         public decimal valor { get; set; }

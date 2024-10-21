@@ -35,10 +35,24 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public bool AtualizarCliente(ClienteModel cliente)
+        public string AtualizarCliente(ClienteModel novoCliente)
         {
-            _dbSet.Update(cliente);
-            return _context.SaveChanges() > 0;
+            var cliente = BuscarClientePorId(novoCliente.IdCliente);
+            if (cliente == null)
+                return "Cliente não encontrado";
+
+            cliente.Nome = string.IsNullOrEmpty(novoCliente.Nome) ? cliente.Nome : novoCliente.Nome;
+            cliente.Cpf = string.IsNullOrEmpty(novoCliente.Cpf) ? cliente.Cpf : novoCliente.Cpf;
+            cliente.Email = string.IsNullOrEmpty(novoCliente.Email) ? cliente.Email : novoCliente.Email;
+            cliente.Telefone = string.IsNullOrEmpty(novoCliente.Telefone) ? cliente.Telefone : novoCliente.Telefone;
+            cliente.Sexo = string.IsNullOrEmpty(novoCliente.Sexo) ? cliente.Sexo : novoCliente.Sexo;
+            cliente.IdEndereco = novoCliente.IdEndereco == 0 ? cliente.IdEndereco : novoCliente.IdEndereco;
+
+        _dbSet.Update(cliente);
+            if (_context.SaveChanges() > 0)
+                return string.Empty;
+
+            return "Erro interno do servidor";
         }
 
         public bool RemoverCliente(int id)

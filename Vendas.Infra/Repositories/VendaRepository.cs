@@ -26,14 +26,13 @@ namespace Vendas.Infra.Repositories
 
             if (dataInicio.HasValue)
             {
-                var dataInicioUtc = DateTime.SpecifyKind(dataInicio.Value, DateTimeKind.Utc);
-                query = query.Where(v => v.data_venda >= dataInicioUtc);
+                query = query.Where(v => v.data_venda > dataInicio.Value.ToUniversalTime());
             }
 
             if (dataFim.HasValue)
             {
-                var dataFimUtc = DateTime.SpecifyKind(dataFim.Value, DateTimeKind.Utc);
-                query = query.Where(v => v.data_venda <= dataFimUtc);
+
+                query = query.Where(v => v.data_venda <= dataFim.Value.ToUniversalTime());
             }
 
             return query.ToList();
@@ -41,15 +40,14 @@ namespace Vendas.Infra.Repositories
 
         public bool CadastrarVenda(VendaModel novaVenda)
         {
-            //novaVenda.data_venda = DateTime.SpecifyKind(novaVenda.data_venda, DateTimeKind.Utc);
-            //novaVenda.data_venda.ToUniversalTime();
+            novaVenda.data_venda = DateTime.UtcNow;
             _dbSet.Add(novaVenda);
             return _context.SaveChanges() > 0;
         }
 
-        public string AtualizarVenda(int id, VendaModel novaVenda) 
+        public string AtualizarVenda(VendaModel novaVenda) 
         {
-                var venda = _dbSet.Find(id);
+                var venda = BuscarVendaPorId(novaVenda.IdVenda);
                 if (venda == null)
                     return "Venda não encontrada";
 
@@ -74,7 +72,6 @@ namespace Vendas.Infra.Repositories
 
             _dbSet.Remove(venda);
             return _context.SaveChanges() > 0;
-
         }
 
         public VendaModel BuscarVendaPorId(int id)

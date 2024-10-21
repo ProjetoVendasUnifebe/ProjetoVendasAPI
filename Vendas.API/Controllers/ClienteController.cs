@@ -20,36 +20,36 @@ namespace Vendas.API.Controllers
         {
             var response = _clienteService.BuscarClientes();
             if (response.Count() == 0)
-                return BadRequest(new ErroDTO("Lista Vazia", "Aparentemente a lista de clientes esta vazia"));
+                return NoContent();
             return Ok(response);
         }
 
-        [HttpGet("cliente-por-id/{id}")]
+        [HttpGet("buscar-cliente-por-id/{id}")]
         public IActionResult BuscarClientePorId(int id)
         {
             var cliente = _clienteService.BuscarClientePorId(id);
             if (cliente == null)
-                return BadRequest(new ErroDTO("Cliente não encontrado", "O cliente não foi encontrado"));
+                return NoContent();
             return Ok(cliente);
         }
 
-        [HttpGet("cliente-por-nome/{nomeCliente}")]
+        [HttpGet("buscar-cliente-por-nome/{nomeCliente}")]
         public IActionResult BuscarClientePorNome(string nomeCliente)
         {
             var response = _clienteService.BuscarClientePorNome(nomeCliente);
             if (response.Count() == 0)
-                return BadRequest(new ErroDTO("Cliente não encontrado", "O cliente não foi encontrado"));
+                return NoContent();
             return Ok(response);
         }
 
         [HttpPost]
         [Route("adicionar-cliente")]
-        public IActionResult AdicionarCliente([FromBody] ClienteModel cliente)
+        public IActionResult AdicionarCliente([FromBody] ClienteInputDTO cliente)
         {
             var response = _clienteService.AdicionarCliente(cliente);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao adicionar cliente", "Ocorreu um erro ao adicionar o cliente"));
-            return Ok("Cliente Adicionado");
+            if (!response)
+                return BadRequest(response);
+            return Ok(response);
         }
 
         [HttpPut]
@@ -57,18 +57,18 @@ namespace Vendas.API.Controllers
         public IActionResult AtualizarCliente([FromBody] ClienteModel cliente)
         {
             var response = _clienteService.AtualizarCliente(cliente);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao atualizar cliente", "Ocorreu um erro ao atualizar o cliente"));
-            return Ok("Cliente Atualizado");
+            if (string.IsNullOrEmpty(response))
+                return Ok("Cliente Atualizado Com Sucesso");
+            return BadRequest(response);
         }
 
         [HttpDelete("remover-cliente/{id}")]
         public IActionResult RemoverCliente(int id)
         {
             var response = _clienteService.RemoverCliente(id);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao remover cliente", "Ocorreu um erro ao remover o cliente")); 
-            return Ok("Cliente Removido");
+            if (!response)
+                return BadRequest(response); 
+            return Ok(response);
         }
     }
 }

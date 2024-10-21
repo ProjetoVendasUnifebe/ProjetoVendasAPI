@@ -23,6 +23,11 @@ namespace Vendas.Infra.Repositories
             return _dbSet.ToList();
         }
 
+        public EstoqueProdutoModel BuscarEstoqueProdutoPorId(int idEstoqueProduto)
+        {
+            return _dbSet.Find(idEstoqueProduto);
+        }
+
         public List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdProduto(int idProduto)
         {
             return _dbSet.Where(x => x.IdProduto == idProduto).ToList();
@@ -44,23 +49,22 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProdutoAtualizado)
+        public string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProdutoAtualizado)
         {
-            var estoque_produto = _dbSet.Find(id);
-
-            if(estoque_produto == null)
+            var estoqueProduto = BuscarEstoqueProdutoPorId(estoqueProdutoAtualizado.IdEstoque_Produto);
+            if (estoqueProduto == null)
                 return "Estoque Produto não encontrado";
-
-            estoque_produto.IdProduto = estoqueProdutoAtualizado.IdProduto;
-            estoque_produto.IdEstoque = estoqueProdutoAtualizado.IdEstoque;
-            estoque_produto.Quantidade = estoqueProdutoAtualizado.Quantidade;
-            estoque_produto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
             
-            _dbSet.Update(estoque_produto);
+            estoqueProduto.IdEstoque = estoqueProdutoAtualizado.IdEstoque != 0 ? estoqueProdutoAtualizado.IdEstoque : estoqueProduto.IdEstoque;
+            estoqueProduto.IdProduto = estoqueProdutoAtualizado.IdProduto != 0 ? estoqueProdutoAtualizado.IdProduto : estoqueProduto.IdProduto;
+            estoqueProduto.Quantidade = estoqueProdutoAtualizado.Quantidade != 0 ? estoqueProdutoAtualizado.Quantidade : estoqueProduto.Quantidade;
+            estoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+
+            _dbSet.Update(estoqueProduto);
             if (_context.SaveChanges() > 0)
                 return string.Empty;
 
-            return "Erro interno do servidor";
+            return "Falha ao atualizar o estoque produto";
         }
 
         public bool RemoverEstoqueProduto(int idEstoqueProduto)

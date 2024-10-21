@@ -20,6 +20,7 @@ namespace Vendas.Application.Mappers
             CreateMap<ProdutoDTO, ProdutoModel>();
             CreateMap<EstoqueDTO, EstoqueModel>();
             CreateMap<EstoqueProdutoDTO, EstoqueProdutoModel>();
+            CreateMap<EnderecoDTO, EnderecoModel>();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Vendas.Domain.Interfaces
         EnderecoModel BuscarEnderecoPorId(int id);
         List<EnderecoModel> BuscarEnderecoPorCidade(string cidade);
         bool AdicionarEndereco(EnderecoModel endereco);
-        bool AtualizarEndereco(EnderecoModel endereco);
+        string AtualizarEndereco(EnderecoModel endereco);
         bool RemoverEndereco(int id);
 
     }

@@ -1,3 +1,4 @@
+using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
 namespace Vendas.Application.Interfaces
@@ -7,8 +8,8 @@ namespace Vendas.Application.Interfaces
         List<EnderecoModel> ListarEnderecos();
         EnderecoModel BuscarEnderecoPorId(int id);
         List<EnderecoModel> BuscarEnderecoPorCidade(string cidade);
-        bool AdicionarEndereco(EnderecoModel endereco);
-        bool AtualizarEndereco(EnderecoModel endereco);
+        bool AdicionarEndereco(EnderecoDTO endereco);
+        string AtualizarEndereco(EnderecoModel endereco);
         bool RemoverEndereco(int id);
 
     }

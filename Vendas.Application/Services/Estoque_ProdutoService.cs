@@ -2,21 +2,28 @@ using Vendas.Application.Interfaces;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 using Vendas.Domain.Interfaces;
+using AutoMapper;
 
 namespace Vendas.Application.Services
 {
     public class Estoque_ProdutoService : IEstoque_ProdutoService
     {
         private readonly IEstoque_ProdutoRepository _estoqueProdutoRepository;
-
-        public Estoque_ProdutoService(IEstoque_ProdutoRepository estoqueProdutoRepository)
+        private readonly IMapper _mapper;
+        public Estoque_ProdutoService(IEstoque_ProdutoRepository estoqueProdutoRepository, IMapper mapper)
         {
             _estoqueProdutoRepository = estoqueProdutoRepository;
+            _mapper = mapper;
         }
 
         public List<EstoqueProdutoModel> BuscarEstoqueProduto()
         {
             return _estoqueProdutoRepository.BuscarEstoqueProduto();
+        }
+
+        public EstoqueProdutoModel BuscarEstoqueProdutoPorId(int id)
+        {
+            return _estoqueProdutoRepository.BuscarEstoqueProdutoPorId(id);
         }
 
         public List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdEstoque(int idEstoque)
@@ -33,14 +40,20 @@ namespace Vendas.Application.Services
         {
             return _estoqueProdutoRepository.BuscarEstoqueProdutoPorQuantidade(quantidade);
         }
-        public bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        public bool AdicionarEstoqueProduto(EstoqueProdutoDTO estoqueProduto)
         {
-            return _estoqueProdutoRepository.AdicionarEstoqueProduto(estoqueProduto);
+            var novoEstoqueProduto = _mapper.Map<EstoqueProdutoModel>(estoqueProduto);
+            novoEstoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+            if(!_estoqueProdutoRepository.AdicionarEstoqueProduto(novoEstoqueProduto))
+                return false;
+            
+            return true;
         }
 
-        public string AtualizarEstoqueProduto(int id, Estoque_ProdutoDTO estoqueProduto)
+        public string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
         {
-            return _estoqueProdutoRepository.AtualizarEstoqueProduto(id, estoqueProduto);
+            var novoEstoqueProduto = _mapper.Map<EstoqueProdutoModel>(estoqueProduto);
+            return _estoqueProdutoRepository.AtualizarEstoqueProduto(novoEstoqueProduto);
         }
 
         public bool RemoverEstoqueProduto(int idEstoqueProduto)

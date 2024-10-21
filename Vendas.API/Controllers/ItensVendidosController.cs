@@ -31,7 +31,7 @@ namespace Vendas.API.Controllers
         public IActionResult BuscarItensVendidosPorId(int id)
         {
             var itensVendidos = _itensVendidosService.BuscarItensVendidosPorId(id);
-            if (itensVendidos == null)
+            if (itensVendidos.IdItensVendidos == 0)
                 return NoContent();
             return Ok(itensVendidos);
         }
@@ -42,15 +42,15 @@ namespace Vendas.API.Controllers
         {
             var response = _itensVendidosService.CadastrarItensVendidos(itensVendidos);
             if (!response)
-                return BadRequest("Não foi possivel cadastrar o ItensVendidos");
-            return Ok("ItensVendidos Adicionado");
+                return BadRequest(response);
+            return Ok(response);
         }
 
         [HttpPut]
-        [Route("atualizar-itens-vendidos/{id}")]
-        public IActionResult AtualizarItensVendidos(int id, [FromBody] ItensVendidosInputDTO itensVendidos)
+        [Route("atualizar-itens-vendidos")]
+        public IActionResult AtualizarItensVendidos([FromBody] ItensVendidosModel itensVendidos)
         {
-            var response = _itensVendidosService.AtualizarItensVendidos(id, itensVendidos);
+            var response = _itensVendidosService.AtualizarItensVendidos(itensVendidos);
             if (string.IsNullOrEmpty(response))
                 return Ok("ItensVendidos Atualizado Com Sucesso");
             return BadRequest(response);
@@ -62,8 +62,8 @@ namespace Vendas.API.Controllers
         {
             var response = _itensVendidosService.RemoverItensVendidos(id);
             if (response)
-                return Ok("ItensVendidos removido com sucesso");
-            return BadRequest("ItensVendidos não Localizado");
+                return Ok(response);
+            return BadRequest(response);
         }
     }
 }

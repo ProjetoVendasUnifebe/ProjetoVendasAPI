@@ -82,16 +82,18 @@ namespace Vendas.API.Controllers
 
         public IActionResult CadastrarUsuario([FromBody] UsuarioInputDTO novoUsuario)
         {
-            if (!_usuarioService.CadastrarUsuario(novoUsuario))
-                return BadRequest("Não foi possivel cadastrar o novo usuario");
-            return Ok("Usuario cadastrado com sucesso");
+            var response = _usuarioService.CadastrarUsuario(novoUsuario);
+
+            if (!response)
+                return BadRequest(response);
+            return Ok(response);
         }
 
         [HttpPut]
-        [Route("atualizar-usuario/{id}")]
-        public IActionResult AtualizarUsuario(int id, [FromBody] UsuarioDTO usuarioAtualizado)
+        [Route("atualizar-usuario")]
+        public IActionResult AtualizarUsuario([FromBody] UsuarioModel usuarioAtualizado)
         {
-            var response = _usuarioService.AtualizarUsuario(id, usuarioAtualizado);
+            var response = _usuarioService.AtualizarUsuario(usuarioAtualizado);
             if (string.IsNullOrEmpty(response))
                 return Ok("Usuario Atualizado Com Sucesso");
             return BadRequest(response);
@@ -113,8 +115,8 @@ namespace Vendas.API.Controllers
         {
             var response = _usuarioService.RemoverUsuario(id);
             if (response)
-                return Ok("Usuario removido com sucesso");
-            return BadRequest("Usuario não Localizado");
+                return Ok(response);
+            return BadRequest(response);
         }
 
     }

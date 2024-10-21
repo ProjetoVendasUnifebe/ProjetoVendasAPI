@@ -37,9 +37,9 @@ namespace Vendas.Infra.Repositories
             return _context.SaveChanges() > 0;
         }
 
-        public string AtualizarItensVendidos(int id, ItensVendidosModel novoItensVendidos)
+        public string AtualizarItensVendidos(ItensVendidosModel novoItensVendidos)
         {
-            var itensVendidos = BuscarItensVendidosPorId(id);
+            var itensVendidos = BuscarItensVendidosPorId(novoItensVendidos.IdItensVendidos);
             if (itensVendidos == null)
                 return "ItensVendidos não encontrado";
 

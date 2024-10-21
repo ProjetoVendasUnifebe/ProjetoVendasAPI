@@ -15,7 +15,7 @@ namespace Vendas.Domain.Interfaces
         UsuarioModel BuscarUsuarioPorLogin(string login);
         UsuarioModel BuscarUsuarioPorId(int id);
         List<UsuarioModel> BuscarUsuarioPorNome(string nome);
-        string AtualizarUsuario(int id, UsuarioModel usuarioAtualizado);
+        string AtualizarUsuario(UsuarioModel usuarioAtualizado);
         string AtuaizarSenhaUsuario(string login, string senha);
         bool RemoverUsuario(int id);
 

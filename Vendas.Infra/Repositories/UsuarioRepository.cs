@@ -45,9 +45,9 @@ namespace Vendas.Infra.Repositories
 
         }
 
-        public string AtualizarUsuario(int id, UsuarioModel usuarioAtualizado)
+        public string AtualizarUsuario(UsuarioModel usuarioAtualizado)
         {
-            var usuario = BuscarUsuarioPorId(id);
+            var usuario = BuscarUsuarioPorId(usuarioAtualizado.IdUsuario);
             if (usuario == null)
                 return "Usuario não encontrado";
 

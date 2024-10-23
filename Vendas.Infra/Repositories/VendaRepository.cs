@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Tracing;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
 
 namespace Vendas.Infra.Repositories

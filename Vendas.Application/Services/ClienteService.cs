@@ -2,7 +2,7 @@ using AutoMapper;
 using Vendas.Application.Interfaces;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces.Repositories;
 
 namespace Vendas.Application.Services
 {

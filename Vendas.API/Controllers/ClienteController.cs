@@ -5,6 +5,8 @@ using Vendas.Domain.Entities;
 
 namespace Vendas.API.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class ClienteController : ControllerBase
     {
         private readonly IClienteService _clienteService;
@@ -15,7 +17,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("listar-clientes")]
+        [Route("buscar-todos-clientes")]
         public IActionResult ListarClientes()
         {
             var response = _clienteService.BuscarClientes();

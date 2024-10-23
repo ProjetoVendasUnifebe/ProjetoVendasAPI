@@ -22,7 +22,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("buscar-usuarios")]
+        [Route("buscar-todos-usuarios")]
         public IActionResult BuscarUsuarios()
         {
             var response = _usuarioService.BuscarUsuarios();
@@ -37,9 +37,10 @@ namespace Vendas.API.Controllers
         {
             var response = _usuarioService.BuscarUsuarioPorLogin(login);
 
-            if (!string.IsNullOrEmpty(response.NomeUsuario))
+            if (response.IdUsuario != 0)
                 return Ok(response);
             return NoContent();
+            
         }
 
         [HttpGet]

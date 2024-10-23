@@ -5,6 +5,8 @@ using Vendas.Domain.DTOs;
 
 namespace Vendas.API.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class Estoque_ProdutoController : ControllerBase
     {
         private readonly IEstoque_ProdutoService _estoqueProdutoService;
@@ -14,16 +16,16 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("listar-estoque-produto")]
+        [Route("buscar-todos-estoque-produto")]
         public IActionResult ListarEstoqueProduto()
         {
             var response = _estoqueProdutoService.BuscarEstoqueProduto();
             if (response.Count == 0)
-                return BadRequest("Lista Vazia");
+                return NoContent();
             return Ok(response);
         }
 
-        [HttpGet("estoque-produto-por-id/{id}")]
+        [HttpGet("buscar-estoque-produto-por-id/{id}")]
         public IActionResult BuscarEstoqueProdutoPorId(int id)
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorId(id);
@@ -32,7 +34,7 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("estoque-produto-por-id-produto/{idProduto}")]
+        [HttpGet("buscar-produto-por-id-produto/{idProduto}")]
         public IActionResult BuscarEstoqueProdutoPorIdProduto(int idProduto)
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorIdProduto(idProduto);
@@ -41,7 +43,7 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("estoque-produto-por-id-estoque/{idEstoque}")]
+        [HttpGet("buscar-estoque-por-id-estoque/{idEstoque}")]
         public IActionResult BuscarEstoqueProdutoPorIdEstoque(int idEstoque)
         {
             var response = _estoqueProdutoService.BuscarEstoqueProdutoPorIdEstoque(idEstoque);
@@ -50,32 +52,25 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("estoque-produto-por-quantidade/{quantidade}")]
-        public IActionResult BuscarEstoqueProdutoPorQuantidade(int quantidade)
-        {
-            var response = _estoqueProdutoService.BuscarEstoqueProdutoPorQuantidade(quantidade);
-            if (response.Count == 0)
-                return NoContent();
-            return Ok(response);
-        }
-
         [HttpPost]
         [Route("adicionar-estoque-produto")]
         public IActionResult AdicionarEstoqueProduto([FromBody] EstoqueProdutoDTO estoqueProduto)
-        { 
-            if (_estoqueProdutoService.AdicionarEstoqueProduto(estoqueProduto))
-                return Ok("Estoque Produto Adicionado");
-            return BadRequest("Erro ao adicionar Estoque Produto");
+        {
+            var response = _estoqueProdutoService.AdicionarEstoqueProduto(estoqueProduto);
+            if (response)
+                return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpPut]
         [Route("atualizar-estoque-produto")]
-        public IActionResult AtualizarEstoqueProduto([FromBody] EstoqueProdutoModel estoqueProduto)
+        public IActionResult AtualizarEstoqueProduto([FromBody] EstoqueProdutoAtualizaDTO estoqueProduto)
         {
             var response = _estoqueProdutoService.AtualizarEstoqueProduto(estoqueProduto);
+
             if (string.IsNullOrEmpty(response))
-                return Ok("Estoque Produto Atualizado");
-            return BadRequest("Erro ao atualizar Estoque Produto");
+                return Ok("Estoque Produto Atualizado com sucesso");
+            return BadRequest(response);
             
         }
 
@@ -83,9 +78,9 @@ namespace Vendas.API.Controllers
         public IActionResult RemoverEstoqueProduto(int idEstoqueProduto)
         {
             var response = _estoqueProdutoService.RemoverEstoqueProduto(idEstoqueProduto);
-            if (response == false)
-                return BadRequest("Erro ao remover Estoque Produto");
-            return Ok("Estoque Produto Removido");
+            if (!response)
+                return BadRequest(response);
+            return Ok(response);
         }
         
     }

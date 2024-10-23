@@ -9,9 +9,8 @@ namespace Vendas.Application.Interfaces
         EstoqueProdutoModel BuscarEstoqueProdutoPorId(int id);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdProduto(int idProduto);
         List<EstoqueProdutoModel> BuscarEstoqueProdutoPorIdEstoque(int idEstoque);
-        List<EstoqueProdutoModel> BuscarEstoqueProdutoPorQuantidade(int quantidade);
         bool AdicionarEstoqueProduto(EstoqueProdutoDTO estoqueProduto);
-        string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
+        string AtualizarEstoqueProduto(EstoqueProdutoAtualizaDTO estoqueProduto);
         bool RemoverEstoqueProduto(int idEstoqueProduto);
     }
 }

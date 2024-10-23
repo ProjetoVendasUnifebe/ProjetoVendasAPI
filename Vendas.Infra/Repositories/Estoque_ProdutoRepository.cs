@@ -38,13 +38,9 @@ namespace Vendas.Infra.Repositories
             return _dbSet.Where(x => x.IdEstoque == idEstoque).ToList();
         }
 
-        public List<EstoqueProdutoModel> BuscarEstoqueProdutoPorQuantidade(int quantidade)
-        {
-            return _dbSet.Where(x => x.Quantidade == quantidade).ToList();
-        }
         public bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
         {
-            estoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+            estoqueProduto.DataAtualizacao = DateTime.UtcNow;
             _dbSet.Add(estoqueProduto);
             return _context.SaveChanges() > 0;
         }
@@ -58,7 +54,7 @@ namespace Vendas.Infra.Repositories
             estoqueProduto.IdEstoque = estoqueProdutoAtualizado.IdEstoque != 0 ? estoqueProdutoAtualizado.IdEstoque : estoqueProduto.IdEstoque;
             estoqueProduto.IdProduto = estoqueProdutoAtualizado.IdProduto != 0 ? estoqueProdutoAtualizado.IdProduto : estoqueProduto.IdProduto;
             estoqueProduto.Quantidade = estoqueProdutoAtualizado.Quantidade != 0 ? estoqueProdutoAtualizado.Quantidade : estoqueProduto.Quantidade;
-            estoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+            estoqueProduto.DataAtualizacao = DateTime.UtcNow;
 
             _dbSet.Update(estoqueProduto);
             if (_context.SaveChanges() > 0)

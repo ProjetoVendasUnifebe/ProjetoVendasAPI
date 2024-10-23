@@ -26,7 +26,7 @@ namespace Vendas.Infra.Repositories
 
         public List<ClienteModel> BuscarClientePorNome(string nomeCliente)
         {
-            return _dbSet.Where(x => x.Nome.Contains(nomeCliente)).ToList();
+            return _dbSet.Where(x => EF.Functions.Like(x.Nome.ToLower(), $"%{nomeCliente.ToLower()}%")).ToList();
         }
 
         public bool AdicionarCliente(ClienteModel cliente)

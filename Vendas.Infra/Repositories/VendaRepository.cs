@@ -26,7 +26,7 @@ namespace Vendas.Infra.Repositories
 
             if (dataInicio.HasValue)
             {
-                query = query.Where(v => v.data_venda > dataInicio.Value.ToUniversalTime());
+                query = query.Where(v => v.data_venda >= dataInicio.Value.ToUniversalTime());
             }
 
             if (dataFim.HasValue)
@@ -57,7 +57,7 @@ namespace Vendas.Infra.Repositories
                 venda.forma_pagamento = string.IsNullOrEmpty(novaVenda.forma_pagamento) ? venda.forma_pagamento : novaVenda.forma_pagamento;
                 venda.data_venda = novaVenda.data_venda != default(DateTime) ? novaVenda.data_venda.ToUniversalTime() : venda.data_venda.ToUniversalTime();
 
-            _dbSet.Update(venda);
+                _dbSet.Update(venda);
                 if (_context.SaveChanges() > 0)
                     return string.Empty;
 

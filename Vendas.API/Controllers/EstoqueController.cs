@@ -17,7 +17,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("buscar-estoques")]
+        [Route("buscar-todos-estoques")]
         public IActionResult BuscarEstoques()
         {
             var response = _estoqueService.BuscarEstoques();
@@ -26,7 +26,7 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("estoque-por-id/{id}")]
+        [HttpGet("buscar-estoque-por-id/{id}")]
         public IActionResult BuscarEstoquePorId(int id)
         {
             var estoque = _estoqueService.BuscarEstoquePorId(id);
@@ -35,11 +35,11 @@ namespace Vendas.API.Controllers
             return Ok(estoque);
         }
 
-        [HttpGet("estoque-por-nome/{nomeEstoque}")]
+        [HttpGet("buscar-estoque-por-nome/{nomeEstoque}")]
         public IActionResult BuscarEstoquePorNome(string nomeEstoque)
         {
             var response = _estoqueService.BuscarEstoquePorNome(nomeEstoque);
-            if (response == null)
+            if (response.Count == 0)
                 return NoContent();
             return Ok(response);
         }
@@ -48,10 +48,10 @@ namespace Vendas.API.Controllers
         [Route("adicionar-estoque")]
         public IActionResult AdicionarEstoque([FromBody] EstoqueDTO estoque)
         {
-           
-            if(_estoqueService.AdicionarEstoque(estoque))
-                return Ok("Estoque Adicionado com sucesso");
-            return BadRequest(new ErroDTO("Erro ao adicionar estoque", "Ocorreu um erro ao adicionar o estoque"));
+            var response = _estoqueService.AdicionarEstoque(estoque);
+            if (response)
+                return Ok(response);
+            return BadRequest(response);
             
         }
 
@@ -62,8 +62,7 @@ namespace Vendas.API.Controllers
             var response = _estoqueService.AtualizarEstoque(estoque);
             if (string.IsNullOrEmpty(response))
                 return Ok("Estoque Atualizado com sucesso");
-            return BadRequest(new ErroDTO("Erro ao atualizar estoque", "Ocorreu um erro ao atualizar o estoque"));
-            
+            return BadRequest(response);
         }
 
         [HttpDelete]
@@ -71,10 +70,10 @@ namespace Vendas.API.Controllers
         public IActionResult RemoverEstoque(int id)
         {
             var response = _estoqueService.RemoverEstoque(id);
-            if (response == false)  
-                return BadRequest(new ErroDTO("Erro ao remover estoque", "Ocorreu um erro ao remover o estoque"));
+            if (!response)  
+                return BadRequest(response);
             
-            return Ok("Estoque Removido");
+            return Ok(response);
         }
     }
 }

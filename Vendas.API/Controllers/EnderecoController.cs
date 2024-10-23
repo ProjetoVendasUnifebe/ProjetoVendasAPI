@@ -17,16 +17,16 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("listar-enderecos")]
+        [Route("buscar-todos-enderecos")]
         public IActionResult ListarEnderecos()
         {
             var response = _enderecoService.ListarEnderecos();
             if (response.Count == 0)
-                return BadRequest(new ErroDTO("Lista Vazia", "Aparentemente a lista de endereços esta vazia"));
+                return NoContent();
             return Ok(response);
         }
 
-        [HttpGet("endereco-por-id/{id}")]
+        [HttpGet("buscar-endereco-por-id/{id}")]
         public IActionResult BuscarEnderecoPorId(int id)
         {
             var endereco = _enderecoService.BuscarEnderecoPorId(id);
@@ -35,7 +35,7 @@ namespace Vendas.API.Controllers
             return Ok(endereco);
         }
 
-        [HttpGet("endereco-por-cidade/{cidade}")]
+        [HttpGet("buscar-endereco-por-cidade/{cidade}")]
         public IActionResult BuscarEnderecoPorCidade(string cidade)
         {
             var response = _enderecoService.BuscarEnderecoPorCidade(cidade);
@@ -48,10 +48,10 @@ namespace Vendas.API.Controllers
         [Route("adicionar-endereco")]
         public IActionResult AdicionarEndereco([FromBody] EnderecoDTO endereco)
         {
-            if (_enderecoService.AdicionarEndereco(endereco))
-                return Ok("Endereço Adicionado");
-            return BadRequest("Erro ao adicionar endereço");
-            
+            var response = _enderecoService.AdicionarEndereco(endereco);
+            if (response)
+                return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpPut]
@@ -61,7 +61,7 @@ namespace Vendas.API.Controllers
             var response = _enderecoService.AtualizarEndereco(endereco);
             if (string.IsNullOrEmpty(response))
                 return Ok("Endereço Atualizado com sucesso");
-            return BadRequest("Erro ao atualizar endereço");
+            return BadRequest(response);
             
         }
 
@@ -71,8 +71,8 @@ namespace Vendas.API.Controllers
         {
             var response = _enderecoService.RemoverEndereco(id);
             if (response == false)
-                return BadRequest("Erro ao remover endereço");
-            return Ok("Endereço Removido com sucesso");
+                return BadRequest(response);
+            return Ok(response);
         }
     }
 }

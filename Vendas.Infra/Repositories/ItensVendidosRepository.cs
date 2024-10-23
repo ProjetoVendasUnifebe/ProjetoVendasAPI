@@ -45,7 +45,7 @@ namespace Vendas.Infra.Repositories
 
             itensVendidos.IdVenda = novoItensVendidos.IdVenda > 0 ? novoItensVendidos.IdVenda : itensVendidos.IdVenda;
             itensVendidos.IdProduto = novoItensVendidos.IdProduto > 0 ? novoItensVendidos.IdProduto : itensVendidos.IdProduto;
-            itensVendidos.QtdVendida = novoItensVendidos.QtdVendida > 0 ? novoItensVendidos.QtdVendida : itensVendidos.IdVenda;
+            itensVendidos.QtdVendida = novoItensVendidos.QtdVendida > 0 ? novoItensVendidos.QtdVendida : itensVendidos.QtdVendida;
 
             _dbSet.Update(itensVendidos);
             if (_context.SaveChanges() > 0)

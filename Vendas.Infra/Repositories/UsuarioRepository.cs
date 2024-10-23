@@ -55,7 +55,7 @@ namespace Vendas.Infra.Repositories
                 return "O login já está em uso por outro usuário";
 
             usuario.NomeUsuario = string.IsNullOrEmpty(usuarioAtualizado.NomeUsuario) ? usuario.NomeUsuario : usuarioAtualizado.NomeUsuario;
-            usuario.EhAdm = usuarioAtualizado.EhAdm != 0 ? 1 : usuarioAtualizado.EhAdm;
+            usuario.EhAdm = usuarioAtualizado.EhAdm != 0 ? 1 : usuario.EhAdm;
             usuario.Login = string.IsNullOrEmpty(usuarioAtualizado.Login) ? usuario.Login : usuarioAtualizado.Login;
             
             _dbSet.Update(usuario);
@@ -87,7 +87,6 @@ namespace Vendas.Infra.Repositories
 
             _dbSet.Remove(usuario);
             return _context.SaveChanges() > 0;
-
         }
 
 

@@ -18,7 +18,7 @@ namespace Vendas.API.Controllers
 
 
         [HttpGet]
-        [Route("listar-todas-vendas")]
+        [Route("buscar-todas-vendas")]
         public IActionResult ListarVendas()
         {
             var response = _vendaService.BuscarTodos();

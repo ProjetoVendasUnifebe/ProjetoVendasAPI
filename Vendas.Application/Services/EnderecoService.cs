@@ -40,8 +40,7 @@ namespace Vendas.Application.Services
 
         public string AtualizarEndereco(EnderecoModel endereco)
         {
-            var enderecoAtual = _enderecoRepository.BuscarEnderecoPorId(endereco.IdEndereco);
-            return _enderecoRepository.AtualizarEndereco(enderecoAtual);
+            return _enderecoRepository.AtualizarEndereco(endereco);
         }
 
         public bool RemoverEndereco(int id)

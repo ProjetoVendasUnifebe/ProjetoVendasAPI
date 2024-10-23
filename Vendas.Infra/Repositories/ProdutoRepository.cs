@@ -29,9 +29,7 @@ namespace Vendas.Infra.Repositories
 
         public List<ProdutoModel> BuscarProdutoPorNome(string nome)
         {
-            return _dbSet
-                .Where(x => x.NomeProduto.Contains(nome))
-                .ToList();
+            return _dbSet.Where(x => EF.Functions.Like(x.NomeProduto.ToLower(), $"%{nome.ToLower()}%")).ToList();
         }
 
         public bool AdicionarProduto(ProdutoModel novoProduto)

@@ -67,7 +67,8 @@ namespace Vendas.API.Controllers
             return BadRequest(response);
         }
 
-        [HttpDelete("remover-produto")]
+        [HttpDelete]
+        [Route("remover-produto")]
         public IActionResult RemoverProduto(int id)
         { 
             var response = _produtoService.RemoverProduto(id);
@@ -75,6 +76,17 @@ namespace Vendas.API.Controllers
                 return BadRequest(response);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("buscar-produtos-mais-vendidos")]
+        public IActionResult ListarProdutosMaisVendidos()
+        {
+            var response = _produtoService.ProdutoMaisVendido();
+            if(response.Any())
+                return Ok(response);
+            return BadRequest("Não há produtos vendidos");
+        }
+
 
     }
 }

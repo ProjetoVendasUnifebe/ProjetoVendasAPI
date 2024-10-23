@@ -1,8 +1,8 @@
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
 using Vendas.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Vendas.Domain.DTOs;
+using Vendas.Domain.Interfaces.Repositories;
 
 namespace Vendas.Infra.Repositories
 {

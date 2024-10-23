@@ -1,8 +1,8 @@
 using Vendas.Application.Interfaces;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
 using AutoMapper;
+using Vendas.Domain.Interfaces.Repositories;
 
 namespace Vendas.Application.Services
 {

@@ -1,6 +1,6 @@
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Domain.Interfaces.Repositories
 {
     public interface IEnderecoRepository
     {

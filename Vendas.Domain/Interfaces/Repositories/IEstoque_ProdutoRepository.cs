@@ -1,7 +1,7 @@
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Domain.Interfaces.Repositories
 {
     public interface IEstoque_ProdutoRepository
     {
@@ -12,6 +12,6 @@ namespace Vendas.Domain.Interfaces
         bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
         string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto);
         bool RemoverEstoqueProduto(int idEstoqueProduto);
-        
+
     }
 }

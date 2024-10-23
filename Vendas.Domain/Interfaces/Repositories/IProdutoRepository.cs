@@ -1,7 +1,7 @@
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Domain.Interfaces.Repositories
 {
     public interface IProdutoRepository
     {
@@ -11,5 +11,6 @@ namespace Vendas.Domain.Interfaces
         bool AdicionarProduto(ProdutoModel produto);
         string AtualizarProduto(ProdutoModel produto);
         bool RemoverProduto(int id);
+        IEnumerable<ProdutoMaisVendidoDTO> ListarProdutosMaisVendidos();
     }
 }

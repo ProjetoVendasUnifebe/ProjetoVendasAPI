@@ -28,9 +28,7 @@ namespace Vendas.Infra.Repositories
 
         public List<EstoqueModel> BuscarEstoquePorNome(string nomeEstoque)
         {
-            return _dbSet
-                .Where(x => x.Nome.Contains(nomeEstoque))
-                .ToList();
+            return _dbSet.Where(x => EF.Functions.Like(x.Nome.ToLower(), $"%{nomeEstoque.ToLower()}%")).ToList();
         }
 
         public bool AdicionarEstoque(EstoqueModel estoque)

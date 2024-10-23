@@ -28,9 +28,7 @@ namespace Vendas.Infra.Repositories
 
         public List<EnderecoModel> BuscarEnderecoPorCidade(string nomeCidade)
         {
-            return _dbSet
-                .Where(x => x.Cidade.Contains(nomeCidade))
-                .ToList();
+            return _dbSet.Where(x => EF.Functions.Like(x.Cidade.ToLower(), $"%{nomeCidade.ToLower()}%")).ToList();
         }
 
         public bool AdicionarEndereco(EnderecoModel endereco)

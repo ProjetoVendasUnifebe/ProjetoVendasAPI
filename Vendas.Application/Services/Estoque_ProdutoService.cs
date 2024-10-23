@@ -15,7 +15,6 @@ namespace Vendas.Application.Services
             _estoqueProdutoRepository = estoqueProdutoRepository;
             _mapper = mapper;
         }
-
         public List<EstoqueProdutoModel> BuscarEstoqueProduto()
         {
             return _estoqueProdutoRepository.BuscarEstoqueProduto();
@@ -35,22 +34,16 @@ namespace Vendas.Application.Services
         {
             return _estoqueProdutoRepository.BuscarEstoqueProdutoPorIdProduto(idProduto);
         }
-
-        public List<EstoqueProdutoModel> BuscarEstoqueProdutoPorQuantidade(int quantidade)
-        {
-            return _estoqueProdutoRepository.BuscarEstoqueProdutoPorQuantidade(quantidade);
-        }
         public bool AdicionarEstoqueProduto(EstoqueProdutoDTO estoqueProduto)
         {
             var novoEstoqueProduto = _mapper.Map<EstoqueProdutoModel>(estoqueProduto);
-            novoEstoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
+
             if(!_estoqueProdutoRepository.AdicionarEstoqueProduto(novoEstoqueProduto))
                 return false;
-            
             return true;
         }
 
-        public string AtualizarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
+        public string AtualizarEstoqueProduto(EstoqueProdutoAtualizaDTO estoqueProduto)
         {
             var novoEstoqueProduto = _mapper.Map<EstoqueProdutoModel>(estoqueProduto);
             return _estoqueProdutoRepository.AtualizarEstoqueProduto(novoEstoqueProduto);

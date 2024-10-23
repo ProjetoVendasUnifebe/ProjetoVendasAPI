@@ -17,7 +17,7 @@ namespace Vendas.API.Controllers
             _itensVendidosService = itensVendidosService;
         }
         [HttpGet]
-        [Route("listar-todos-itens-vendidos")]
+        [Route("buscar-todos-itens-vendidos")]
         public IActionResult BuscarTodosItensVendidos()
         {
             var response = _itensVendidosService.BuscarTodosItensVendidos();
@@ -31,7 +31,7 @@ namespace Vendas.API.Controllers
         public IActionResult BuscarItensVendidosPorId(int id)
         {
             var itensVendidos = _itensVendidosService.BuscarItensVendidosPorId(id);
-            if (itensVendidos.IdItensVendidos == 0)
+            if (itensVendidos == null)
                 return NoContent();
             return Ok(itensVendidos);
         }

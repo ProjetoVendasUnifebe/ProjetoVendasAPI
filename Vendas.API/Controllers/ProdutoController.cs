@@ -19,7 +19,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpGet]
-        [Route("buscar-produtos")]
+        [Route("buscar-todos-produtos")]
         public IActionResult BuscarProdutos()
         {
             var response = _produtoService.BuscarProdutos();
@@ -28,7 +28,7 @@ namespace Vendas.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("produto-por-id/{id}")]
+        [HttpGet("buscar-produto-por-id/{id}")]
         
         public IActionResult BuscarProdutoPorId(int id)
         {
@@ -38,23 +38,23 @@ namespace Vendas.API.Controllers
             return Ok(produto);
         }
 
-        [HttpGet("produto-por-nome/{nome}")]
+        [HttpGet("buscar-produto-por-nome/{nome}")]
         public IActionResult BuscarProdutoPorNome(string nome)
         {
             var response = _produtoService.BuscarProdutoPorNome(nome);
-            if (response == null)
-                return NoContent();
-            return Ok(response);
+            if (response.Count > 0)
+                return Ok(response);
+            return NoContent();
         }
 
         [HttpPost]
         [Route("adicionar-produto")]
         public IActionResult AdicionarProduto([FromBody] ProdutoDTO produto)
         {
-            if (_produtoService.AdicionarProduto(produto))
-                return Ok("Produto Adicionado com sucesso");
-            return BadRequest(new ErroDTO("Erro ao adicionar produto", "Ocorreu um erro ao adicionar o produto"));
-            
+            var response = _produtoService.AdicionarProduto(produto);
+            if (response)
+                return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpPut]
@@ -64,17 +64,16 @@ namespace Vendas.API.Controllers
             var response = _produtoService.AtualizarProduto(produtoAtualizado);
             if (string.IsNullOrEmpty(response))
                 return Ok("Produto Atualizado com sucesso");
-            return BadRequest(new ErroDTO("Erro ao atualizar produto", "Ocorreu um erro ao atualizar o produto"));
-            
+            return BadRequest(response);
         }
 
         [HttpDelete("remover-produto")]
         public IActionResult RemoverProduto(int id)
         { 
             var response = _produtoService.RemoverProduto(id);
-            if (response == false)
-                return BadRequest(new ErroDTO("Erro ao remover produto", "Ocorreu um erro ao remover o produto"));
-            return Ok("Produto Removido");
+            if (!response)
+                return BadRequest(response);
+            return Ok(response);
         }
 
     }

@@ -87,6 +87,16 @@ namespace Vendas.API.Controllers
             return BadRequest("Não há produtos vendidos");
         }
 
+        [HttpGet]
+        [Route("buscar-produtos-disponiveis-por-estoque")]
+        public IActionResult BuscarProdutosDisponiveisPorEstoque()
+        {
+            var response = _produtoService.BuscarProdutosDisponiveisPorEstoque();
+            if (response.Any())
+                return Ok(response);
+            return BadRequest("Não há produtos disponiveis");
+        }
+
 
     }
 }

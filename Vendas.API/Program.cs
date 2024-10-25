@@ -36,6 +36,7 @@ builder.Services.AddDbContext<VendasDbContext>(options =>
 builder.Services.AddScoped<IDbConnection>(provider =>
         new NpgsqlConnection(builder.Configuration.GetConnectionString("DataBase")));
 
+
 // Registro de serviços e repositóriosNpgsqlConnection
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();

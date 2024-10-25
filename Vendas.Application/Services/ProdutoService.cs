@@ -1,9 +1,9 @@
 using Vendas.Application.Interfaces;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
 using Vendas.Application.Mappers;
 using AutoMapper;
+using Vendas.Domain.Interfaces.Repositories;
 
 namespace Vendas.Application.Services
 {
@@ -58,6 +58,16 @@ namespace Vendas.Application.Services
         public bool RemoverProduto(int id)
         {
             return _produtoRepository.RemoverProduto(id);
+        }
+
+        public IEnumerable<ProdutoMaisVendidoDTO> ProdutoMaisVendido()
+        {
+            return _produtoRepository.ListarProdutosMaisVendidos();
+        }
+
+        public IEnumerable<ProdutosDisponiveisPorEstoqueDTO> BuscarProdutosDisponiveisPorEstoque()
+        {
+            return _produtoRepository.BuscarProdutosDisponiveisPorEstoque();
         }
     }
 }

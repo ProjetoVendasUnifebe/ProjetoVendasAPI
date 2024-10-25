@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
 
 namespace Vendas.Infra.Repositories

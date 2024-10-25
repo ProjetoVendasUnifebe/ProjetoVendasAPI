@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
 
-namespace Vendas.Domain.Interfaces
+namespace Vendas.Domain.Interfaces.Repositories
 {
     public interface IItensVendidosRepository
     {

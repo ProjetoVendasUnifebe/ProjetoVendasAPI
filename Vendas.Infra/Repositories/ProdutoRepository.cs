@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces.Dapper;
+using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
 
 namespace Vendas.Infra.Repositories
@@ -10,9 +11,11 @@ namespace Vendas.Infra.Repositories
     {
         private readonly DbSet<ProdutoModel> _dbSet;
         private readonly VendasDbContext _context;
+        private readonly IDapperVendas _dapperVendas;
 
-        public ProdutoRepository(VendasDbContext context)
+        public ProdutoRepository(VendasDbContext context, IDapperVendas dapperVendas)
         {
+            _dapperVendas = dapperVendas;
             _context = context;
             _dbSet = context.Set<ProdutoModel>();
         }
@@ -64,6 +67,40 @@ namespace Vendas.Infra.Repositories
 
             _dbSet.Remove(produto);
             return _context.SaveChanges() > 0;
+        }
+
+        public IEnumerable<ProdutoMaisVendidoDTO> ListarProdutosMaisVendidos()
+        {
+            var query = $@"SELECT 
+                p.""idProduto"" AS IdProduto,
+                p.nome AS NomeProduto,
+                SUM(iv.""qtdVendida"") AS TotalVendido
+                    FROM comercialize.""itensVendidos"" iv
+                JOIN 
+                    comercialize.produto p ON iv.""idProduto"" = p.""idProduto""
+                GROUP BY 
+                    p.""idProduto"", p.nome
+                ORDER BY 
+                    TotalVendido DESC
+                LIMIT 5;";
+
+            return _dapperVendas.RunQueryVendas<ProdutoMaisVendidoDTO>(query);
+        }
+
+        public IEnumerable<ProdutosDisponiveisPorEstoqueDTO> BuscarProdutosDisponiveisPorEstoque()
+        {
+            var query = $@"SELECT 
+                sp.""idEstoque_Produto"" AS IdEstoque_Produto,
+                p.nome AS NomeProduto,
+                s.nome AS Estoque,
+                sp.quantidade AS Quantidade
+                    FROM comercialize.estoque_produto sp
+                JOIN 
+                    comercialize.produto p ON sp.""idProduto"" = p.""idProduto""
+                JOIN 
+                    comercialize.estoque s ON sp.""idEstoque"" = s.""idEstoque"";";
+
+            return _dapperVendas.RunQueryVendas<ProdutosDisponiveisPorEstoqueDTO>(query);
         }
 
     }

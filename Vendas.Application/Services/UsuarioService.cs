@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Vendas.Application.Interfaces;
 using Vendas.Domain.DTOs;
 using Vendas.Domain.Entities;
-using Vendas.Domain.Interfaces;
 using System.Security.Cryptography;
 using AutoMapper;
 using System.Net.Mail;
+using Vendas.Domain.Interfaces.Repositories;
 
 
 namespace Vendas.Application.Services

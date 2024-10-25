@@ -1,9 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using System.Data;
+using System.Data.SqlClient;
 using Vendas.Application.Interfaces;
 using Vendas.Application.Mappers;
 using Vendas.Application.Services;
-using Vendas.Domain.Interfaces;
+using Vendas.Domain.Interfaces.Dapper;
+using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
+using Vendas.Infra.Dapper;
 using Vendas.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +33,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<VendasDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 
-// Registro de serviços e repositórios
+builder.Services.AddScoped<IDbConnection>(provider =>
+        new NpgsqlConnection(builder.Configuration.GetConnectionString("DataBase")));
+
+
+// Registro de serviços e repositóriosNpgsqlConnection
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -45,6 +54,7 @@ builder.Services.AddScoped<IEstoque_ProdutoRepository, Estoque_ProdutoRepository
 builder.Services.AddScoped<IEstoque_ProdutoService, Estoque_ProdutoService>();
 builder.Services.AddScoped<IItensVendidosService, ItensVendidosService>();
 builder.Services.AddScoped<IItensVendidosRepository, ItensVendidosRepository>();
+builder.Services.AddScoped<IDapperVendas, DapperVendas>();
 
 // Configuração do AutoMapper
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));

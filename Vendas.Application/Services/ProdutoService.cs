@@ -64,5 +64,10 @@ namespace Vendas.Application.Services
         {
             return _produtoRepository.ListarProdutosMaisVendidos();
         }
+
+        public IEnumerable<ProdutosDisponiveisPorEstoqueDTO> BuscarProdutosDisponiveisPorEstoque()
+        {
+            return _produtoRepository.BuscarProdutosDisponiveisPorEstoque();
+        }
     }
 }

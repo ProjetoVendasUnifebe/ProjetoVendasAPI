@@ -1,7 +1,7 @@
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Data;
-using System.Data.SqlClient;
 using Vendas.Application.Interfaces;
 using Vendas.Application.Mappers;
 using Vendas.Application.Services;
@@ -10,6 +10,8 @@ using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
 using Vendas.Infra.Dapper;
 using Vendas.Infra.Repositories;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,11 +32,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configuração do Entity Framework com PostgreSQL
+string? connectionString = Environment.GetEnvironmentVariable("DB_STRING");
+
 builder.Services.AddDbContext<VendasDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IDbConnection>(provider =>
-        new NpgsqlConnection(builder.Configuration.GetConnectionString("DataBase")));
+    new NpgsqlConnection(connectionString));
+
 
 // Registro de serviços e repositóriosNpgsqlConnection
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();

@@ -12,5 +12,6 @@ namespace Vendas.Domain.Interfaces.Repositories
         string AtualizarProduto(ProdutoModel produto);
         bool RemoverProduto(int id);
         IEnumerable<ProdutoMaisVendidoDTO> ListarProdutosMaisVendidos();
+        IEnumerable<ProdutosDisponiveisPorEstoqueDTO> BuscarProdutosDisponiveisPorEstoque();
     }
 }

@@ -8,7 +8,7 @@ namespace Vendas.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<EnderecoModel> builder)
         {
-            builder.ToTable("endereco", "comercialize");
+            builder.ToTable("endereco");
 
             builder.HasKey(x => x.IdEndereco);
 
@@ -19,7 +19,7 @@ namespace Vendas.Infra.Mappings
             builder.Property(x => x.Cep).HasColumnName("cep").HasColumnType("varchar(10)").IsRequired();
             builder.Property(x => x.Bairro).HasColumnName("bairro").HasColumnType("varchar(100)").IsRequired();
             builder.Property(x => x.Rua).HasColumnName("rua").HasColumnType("varchar(100)").IsRequired();
-            builder.Property(x => x.Numero).HasColumnName("numero").HasColumnType("bigint").IsRequired();
+            builder.Property(x => x.Numero).HasColumnName("numero").HasColumnType("int").IsRequired();
             builder.Property(x => x.Complemento).HasColumnName("complemento").HasColumnType("varchar(100)").IsRequired();
         }
         

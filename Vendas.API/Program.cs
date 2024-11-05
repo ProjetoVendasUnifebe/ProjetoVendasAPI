@@ -10,6 +10,9 @@ using Vendas.Domain.Interfaces.Repositories;
 using Vendas.Infra.Context;
 using Vendas.Infra.Dapper;
 using Vendas.Infra.Repositories;
+using DotNetEnv;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,13 +32,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var DataBase = Environment.GetEnvironmentVariable("DBString");
 // Configuração do Entity Framework com PostgreSQL
 builder.Services.AddDbContext<VendasDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
+    options.UseSqlServer(DataBase));
+//builder.Configuration.GetConnectionString("DataBase")
 
 builder.Services.AddScoped<IDbConnection>(provider =>
-        new NpgsqlConnection(builder.Configuration.GetConnectionString("DataBase")));
-
+        new SqlConnection(DataBase));
+//builder.Configuration.GetConnectionString("DataBase")
 
 // Registro de serviços e repositóriosNpgsqlConnection
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();

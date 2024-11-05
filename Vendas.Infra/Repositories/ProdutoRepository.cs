@@ -87,6 +87,22 @@ namespace Vendas.Infra.Repositories
             return _dapperVendas.RunQueryVendas<ProdutoMaisVendidoDTO>(query);
         }
 
+        public IEnumerable<ProdutosDisponiveisPorEstoqueDTO> BuscarProdutosDisponiveisPorEstoque()
+        {
+            var query = $@"SELECT 
+                sp.""idEstoque_Produto"" AS IdEstoque_Produto,
+                p.nome AS NomeProduto,
+                s.nome AS Estoque,
+                sp.quantidade AS Quantidade
+                    FROM comercialize.estoque_produto sp
+                JOIN 
+                    comercialize.produto p ON sp.""idProduto"" = p.""idProduto""
+                JOIN 
+                    comercialize.estoque s ON sp.""idEstoque"" = s.""idEstoque"";";
+
+            return _dapperVendas.RunQueryVendas<ProdutosDisponiveisPorEstoqueDTO>(query);
+        }
+
     }
 }
 

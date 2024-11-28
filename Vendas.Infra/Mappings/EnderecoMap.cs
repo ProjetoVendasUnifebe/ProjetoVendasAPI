@@ -8,7 +8,7 @@ namespace Vendas.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<EnderecoModel> builder)
         {
-            builder.ToTable("endereco");
+            builder.ToTable("endereco", "comercialize");
 
             builder.HasKey(x => x.IdEndereco);
 

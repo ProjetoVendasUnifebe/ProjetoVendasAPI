@@ -8,7 +8,7 @@ namespace Vendas.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<UsuarioModel> builder)
         {
-            builder.ToTable("usuario");
+            builder.ToTable("usuario", "comercialize");
 
             builder.HasKey(x => x.IdUsuario);
             builder.HasIndex(x => x.Login).IsUnique();

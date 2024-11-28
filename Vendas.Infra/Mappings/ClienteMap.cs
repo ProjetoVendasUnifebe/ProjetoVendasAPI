@@ -8,7 +8,7 @@ namespace Vendas.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<ClienteModel> builder)
         {
-            builder.ToTable("cliente");
+            builder.ToTable("cliente", "comercialize");
 
             builder.HasKey(x => x.IdCliente);
 

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Data;
-using System.Data.SqlClient;
 using Vendas.Application.Interfaces;
 using Vendas.Application.Mappers;
 using Vendas.Application.Services;
@@ -12,7 +11,6 @@ using Vendas.Infra.Dapper;
 using Vendas.Infra.Repositories;
 using DotNetEnv;
 
-Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,14 +30,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var DataBase = Environment.GetEnvironmentVariable("DBString");
 // Configuração do Entity Framework com PostgreSQL
 builder.Services.AddDbContext<VendasDbContext>(options =>
-    options.UseSqlServer(DataBase));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase")));
 //builder.Configuration.GetConnectionString("DataBase")
 
 builder.Services.AddScoped<IDbConnection>(provider =>
-        new SqlConnection(DataBase));
+        new NpgsqlConnection(builder.Configuration.GetConnectionString("DataBase")));
 //builder.Configuration.GetConnectionString("DataBase")
 
 // Registro de serviços e repositóriosNpgsqlConnection
@@ -68,12 +65,11 @@ builder.Services.AddAutoMapper(typeof(DTOToDomain));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

@@ -49,7 +49,7 @@ namespace Vendas.API.Controllers
         public IActionResult AdicionarEndereco([FromBody] EnderecoDTO endereco)
         {
             var response = _enderecoService.AdicionarEndereco(endereco);
-            if (response)
+            if (response != 0)
                 return Ok(response);
             return BadRequest(response);
         }
@@ -66,7 +66,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpDelete]
-        [Route("remover-endereco")]
+        [Route("remover-endereco/{id}")]
         public IActionResult RemoverEndereco(int id)
         {
             var response = _enderecoService.RemoverEndereco(id);

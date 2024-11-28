@@ -92,7 +92,7 @@ namespace Vendas.API.Controllers
 
         [HttpPut]
         [Route("atualizar-usuario")]
-        public IActionResult AtualizarUsuario([FromBody] UsuarioModel usuarioAtualizado)
+        public IActionResult AtualizarUsuario([FromBody] UsuarioDTO usuarioAtualizado)
         {
             var response = _usuarioService.AtualizarUsuario(usuarioAtualizado);
             if (string.IsNullOrEmpty(response))

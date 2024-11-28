@@ -40,7 +40,7 @@ namespace Vendas.Infra.Repositories
 
         public bool CadastrarVenda(VendaModel novaVenda)
         {
-            novaVenda.data_venda = DateTime.UtcNow;
+            novaVenda.data_venda = DateTime.UtcNow.AddHours(-3);
             _dbSet.Add(novaVenda);
             return _context.SaveChanges() > 0;
         }
@@ -55,7 +55,7 @@ namespace Vendas.Infra.Repositories
                 venda.IdUsuario = novaVenda.IdUsuario > 0 ? novaVenda.IdUsuario : venda.IdUsuario;
                 venda.valor = novaVenda.valor > 0 ? novaVenda.valor : venda.valor;
                 venda.forma_pagamento = string.IsNullOrEmpty(novaVenda.forma_pagamento) ? venda.forma_pagamento : novaVenda.forma_pagamento;
-                venda.data_venda = novaVenda.data_venda != default(DateTime) ? novaVenda.data_venda.ToUniversalTime() : venda.data_venda.ToUniversalTime();
+                venda.data_venda = novaVenda.data_venda == default(DateTime) ? venda.data_venda.ToUniversalTime().AddHours(-3) : novaVenda.data_venda.Kind == DateTimeKind.Utc ? novaVenda.data_venda : novaVenda.data_venda.ToUniversalTime().AddHours(-3);
 
                 _dbSet.Update(venda);
                 if (_context.SaveChanges() > 0)

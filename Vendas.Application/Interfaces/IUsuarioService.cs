@@ -16,7 +16,7 @@ namespace Vendas.Application.Interfaces
        bool RealizarLogin(string login, string senha);
        BuscaUsuarioDTO BuscarUsuarioPorId(int id);
        List<BuscaUsuarioDTO> BuscarUsuarioPorNome(string nome);
-        string AtualizarUsuario(UsuarioModel usuarioAtualizado);
+        string AtualizarUsuario(UsuarioDTO usuarioAtualizado);
         string AtualizarSenhaUsuario(string login, string senha);
         bool RemoverUsuario(int id);
     }

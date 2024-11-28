@@ -66,7 +66,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpDelete]
-        [Route("remover-estoque")]
+        [Route("remover-estoque/{id}")]
         public IActionResult RemoverEstoque(int id)
         {
             var response = _estoqueService.RemoverEstoque(id);

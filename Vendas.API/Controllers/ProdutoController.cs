@@ -68,7 +68,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpDelete]
-        [Route("remover-produto")]
+        [Route("remover-produto/{id}")]
         public IActionResult RemoverProduto(int id)
         { 
             var response = _produtoService.RemoverProduto(id);
@@ -85,6 +85,16 @@ namespace Vendas.API.Controllers
             if(response.Any())
                 return Ok(response);
             return BadRequest("Não há produtos vendidos");
+        }
+
+        [HttpGet]
+        [Route("buscar-produtos-disponiveis-por-estoque")]
+        public IActionResult BuscarProdutosDisponiveisPorEstoque()
+        {
+            var response = _produtoService.BuscarProdutosDisponiveisPorEstoque();
+            if (response.Any())
+                return Ok(response);
+            return BadRequest("Não há produtos disponiveis");
         }
 
 

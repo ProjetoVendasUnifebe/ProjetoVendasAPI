@@ -31,10 +31,13 @@ namespace Vendas.Infra.Repositories
             return _dbSet.Where(x => EF.Functions.Like(x.Cidade.ToLower(), $"%{nomeCidade.ToLower()}%")).ToList();
         }
 
-        public bool AdicionarEndereco(EnderecoModel endereco)
+        public int AdicionarEndereco(EnderecoModel endereco)
         {
             _dbSet.Add(endereco);
-            return _context.SaveChanges() > 0;
+            if (_context.SaveChanges() == 0)
+                endereco.IdEndereco = 0;
+
+            return endereco.IdEndereco;
         }
 
         public string AtualizarEndereco(EnderecoModel endereco)

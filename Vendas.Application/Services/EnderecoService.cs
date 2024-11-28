@@ -32,7 +32,7 @@ namespace Vendas.Application.Services
             return _enderecoRepository.BuscarEnderecoPorCidade(cidade);
         }
 
-        public bool AdicionarEndereco(EnderecoDTO endereco)
+        public int AdicionarEndereco(EnderecoDTO endereco)
         {
             var novoEndereco = _mapper.Map<EnderecoModel>(endereco);
             return _enderecoRepository.AdicionarEndereco(novoEndereco);

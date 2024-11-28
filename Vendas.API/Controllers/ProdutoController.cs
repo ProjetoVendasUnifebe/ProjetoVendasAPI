@@ -68,7 +68,7 @@ namespace Vendas.API.Controllers
         }
 
         [HttpDelete]
-        [Route("remover-produto")]
+        [Route("remover-produto/{id}")]
         public IActionResult RemoverProduto(int id)
         { 
             var response = _produtoService.RemoverProduto(id);

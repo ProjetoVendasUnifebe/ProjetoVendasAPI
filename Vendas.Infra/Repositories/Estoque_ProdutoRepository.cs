@@ -40,7 +40,7 @@ namespace Vendas.Infra.Repositories
 
         public bool AdicionarEstoqueProduto(EstoqueProdutoModel estoqueProduto)
         {
-            estoqueProduto.DataAtualizacao = DateTime.UtcNow;
+            estoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
             _dbSet.Add(estoqueProduto);
             return _context.SaveChanges() > 0;
         }
@@ -54,7 +54,7 @@ namespace Vendas.Infra.Repositories
             estoqueProduto.IdEstoque = estoqueProdutoAtualizado.IdEstoque != 0 ? estoqueProdutoAtualizado.IdEstoque : estoqueProduto.IdEstoque;
             estoqueProduto.IdProduto = estoqueProdutoAtualizado.IdProduto != 0 ? estoqueProdutoAtualizado.IdProduto : estoqueProduto.IdProduto;
             estoqueProduto.Quantidade = estoqueProdutoAtualizado.Quantidade != 0 ? estoqueProdutoAtualizado.Quantidade : estoqueProduto.Quantidade;
-            estoqueProduto.DataAtualizacao = DateTime.UtcNow;
+            estoqueProduto.DataAtualizacao = DateTime.UtcNow.AddHours(-3);
 
             _dbSet.Update(estoqueProduto);
             if (_context.SaveChanges() > 0)

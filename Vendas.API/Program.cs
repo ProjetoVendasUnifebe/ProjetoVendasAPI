@@ -57,6 +57,8 @@ builder.Services.AddScoped<IEstoque_ProdutoService, Estoque_ProdutoService>();
 builder.Services.AddScoped<IItensVendidosService, ItensVendidosService>();
 builder.Services.AddScoped<IItensVendidosRepository, ItensVendidosRepository>();
 builder.Services.AddScoped<IDapperVendas, DapperVendas>();
+builder.Services.AddScoped<IViewsService, ViewsService>();
+builder.Services.AddScoped<IViewsRepository, ViewsRepository>();
 
 // Configuração do AutoMapper
 builder.Services.AddAutoMapper(typeof(DTOToDomainProfile));
